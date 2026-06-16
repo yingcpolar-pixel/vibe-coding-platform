@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurora — Motion-Driven Landing</title>
+
+  <!-- Fonts: modern sans-serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Splitting.js (字元/單字切分) -->
+  <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css" />
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- ============ Progress / scroll indicator ============ -->
+  <div class="scroll-progress" data-progress aria-hidden="true"></div>
+
+  <!-- ============ Nav ============ -->
+  <header class="nav" data-nav>
+    <a class="nav__brand" href="#">
+      <!-- 原生 SVG geometric icon — GSAP 控制 stroke-dashoffset -->
+      <svg class="icon-draw" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path class="draw-path" d="M16 3 L29 10 V22 L16 29 L3 22 V10 Z" stroke="currentColor" stroke-width="1.5" />
+        <path class="draw-path" d="M16 3 V16 L29 10 M16 16 L3 10 M16 16 V29" stroke="currentColor" stroke-width="1.5" />
+      </svg>
+      <span>Aurora</span>
+    </a>
+    <nav class="nav__links">
+      <a href="#features">Features</a>
+      <a href="#metrics">Metrics</a>
+      <a href="#cta">Start</a>
+    </nav>
+  </header>
+
+  <!-- ============ Hero ============ -->
+  <section class="hero" id="hero">
+    <!-- parallax background layers -->
+    <div class="hero__layer hero__layer--back" data-parallax data-speed="-0.25"></div>
+    <div class="hero__layer hero__layer--mid"  data-parallax data-speed="0.15"></div>
+
+    <div class="hero__content">
+      <p class="eyebrow" data-splitting data-fly>Motion Design System</p>
+      <h1 class="hero__title" data-splitting data-fly>
+        Build interfaces that move with intention.
+      </h1>
+      <p class="hero__sub" data-fade>
+        平滑滾動、捲動視差與物理動態，打造頂級的產品敘事體驗。
+      </p>
+      <div class="hero__actions" data-fade>
+        <a class="btn btn--primary" href="#cta">開始使用</a>
+        <a class="btn btn--ghost" href="#features">了解更多</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Features ============ -->
+  <section class="section features" id="features">
+    <h2 class="section__title" data-splitting data-fly>What makes it feel alive</h2>
+
+    <div class="features__grid">
+      <article class="card" data-reveal>
+        <svg class="icon-draw card__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle class="draw-path" cx="24" cy="24" r="18" stroke="currentColor" stroke-width="1.5" />
+          <path class="draw-path" d="M14 24 L22 32 L34 16" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <h3>Smooth Scrolling</h3>
+        <p>Lenis 驅動的慣性滾動，以單一 rAF loop 同步 GSAP ticker。</p>
+      </article>
+
+      <article class="card" data-reveal>
+        <svg class="icon-draw card__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path class="draw-path" d="M8 36 L20 20 L28 28 L40 12" stroke="currentColor" stroke-width="1.5" />
+          <path class="draw-path" d="M8 12 V36 H40" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <h3>Parallax Depth</h3>
+        <p>ScrollTrigger 對應多層 transform，營造空間縱深而不犧牲效能。</p>
+      </article>
+
+      <article class="card" data-reveal>
+        <svg class="icon-draw card__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <rect class="draw-path" x="8" y="8" width="32" height="32" rx="8" stroke="currentColor" stroke-width="1.5" />
+          <path class="draw-path" d="M24 16 V32 M16 24 H32" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <h3>Typographic Reveal</h3>
+        <p>Splitting.js + GSAP stagger，標題以單字逐字飛入。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ Metrics / ECharts ============ -->
+  <section class="section metrics" id="metrics">
+    <div class="metrics__head">
+      <h2 class="section__title" data-splitting data-fly>Performance, visualized</h2>
+      <p class="metrics__sub" data-fade>微光極簡風格的互動式圖表，懸停時 Tooltip 帶有彈簧物理動態。</p>
+    </div>
+    <!-- 進入 viewport 才 init，避免不必要的初始計算 -->
+    <div class="chart" id="chart" data-chart role="img" aria-label="Interactive performance chart"></div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="section cta" id="cta">
+    <h2 class="cta__title" data-splitting data-fly>Ready to move?</h2>
+    <a class="btn btn--primary btn--lg" href="#" data-fade>立即開始打造</a>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Aurora. Crafted with motion.</span>
+  </footer>
+
+  <!-- ============ Vendor scripts (defer, single bundle entry) ============ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" defer></script>
+  <script src="./script.js" defer></script>
+</body>
+</html>
