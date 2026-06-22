@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#05070d">
+<link rel="canonical" href="https://vibe-coding-platform-c-polar.vercel.app/bigidea/">
+<title>NanoFlashing™ by C-POLAR — Purification With a Permanent Positive Charge</title>
+<meta name="description" content="Most pollutants carry a negative charge. NanoFlashing builds a permanent positive charge into the material itself — capturing toxins and destroying viruses, bacteria, and fungi on contact, without ever wearing out.">
+<meta name="keywords" content="NanoFlashing, air purification, water filtration, antimicrobial material, permanent positive charge, electrostatic capture, kills viruses bacteria fungi, HEPA alternative, filter that never wears out">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NanoFlashing">
+<meta property="og:title" content="NanoFlashing — Purification With a Permanent Positive Charge">
+<meta property="og:description" content="Pollutants are negatively charged. NanoFlashing builds a permanent positive charge into the material itself — capturing toxins and destroying viruses, bacteria, and fungi on contact.">
+<meta property="og:url" content="https://vibe-coding-platform-c-polar.vercel.app/bigidea/">
+<meta property="og:image" content="https://vibe-coding-platform-c-polar.vercel.app/bigidea/og-cover.jpg">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NanoFlashing — Purification With a Permanent Positive Charge">
+<meta name="twitter:description" content="Pollutants are negatively charged. NanoFlashing builds a permanent positive charge into the material itself — capturing toxins and killing pathogens on contact.">
+<meta name="twitter:image" content="https://vibe-coding-platform-c-polar.vercel.app/bigidea/og-cover.jpg">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "NanoFlashing",
+  "category": "Air & Water Purification Material",
+  "description": "An antimicrobial purification material with a permanent positive charge built into the material itself. It electrostatically captures negatively charged pollutants and destroys viruses, bacteria, and fungi on contact by physical action — without losing its charge over time.",
+  "brand": { "@type": "Brand", "name": "NanoFlashing" },
+  "url": "https://vibe-coding-platform-c-polar.vercel.app/bigidea/",
+  "additionalProperty": [
+    { "@type": "PropertyValue", "name": "Charge", "value": "Permanent positive, built into the material" },
+    { "@type": "PropertyValue", "name": "Action", "value": "Captures pollutants; destroys pathogens on contact" }
+  ]
+}
+</script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:#05070d;color:#fff;font-family:'Inter',-apple-system,'Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  html.lenis,html.lenis body{height:auto;}
+  .lenis.lenis-smooth{scroll-behavior:auto!important;}
+
+  #poster{position:fixed;inset:0;z-index:0;}
+  #poster svg{width:100%;height:100%;display:block;}
+  #c{position:fixed;inset:0;z-index:1;display:block;width:100%;height:100%;opacity:0;transition:opacity .9s ease;}
+  #c.ready{opacity:1;}
+  #spacer{height:700vh;position:relative;pointer-events:none;}
+
+  #ui{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden;}
+  #scrim{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 50%,rgba(4,6,11,.88) 0%,rgba(3,4,8,.96) 100%);opacity:0;}
+
+  /* Typography discipline: every act headline sits on a shared baseline (bottom band
+     for acts 1/2/4, a top safe-band for act 5) with a consistent headline→subhead
+     contrast step and a soft shadow so type never melts into glow. Acts 4-5 carry the
+     LARGEST type of the ramp (act2 34px → act3 42px → act4 52px → act5 46px multi-line)
+     and each is composed against the hero panel framing so copy never touches the scene:
+     act-4 copy lives below the panel's bottom edge, act-5 copy in the clear top band,
+     sized to hold a long two-sentence caption at full scale. */
+  .cap{position:absolute;left:0;right:0;text-align:center;opacity:0;padding:0 7%;will-change:opacity;}
+  .cap h1,.cap h2{font-weight:800;letter-spacing:-.022em;line-height:1.07;font-size:clamp(26px,4.6vw,54px);text-shadow:0 2px 26px rgba(0,0,0,.55),0 1px 4px rgba(0,0,0,.35);text-wrap:balance;}
+  .cap p{margin:14px auto 0;font-size:clamp(15px,1.7vw,20px);color:#9aa6b6;font-weight:450;max-width:660px;text-shadow:0 1px 14px rgba(0,0,0,.5);text-wrap:balance;}
+  #cap-act1{bottom:14%;}
+  #cap-act2{bottom:14%;}
+  #cap-act2 h2{font-size:clamp(20px,3vw,34px);}
+  #cap-act4{bottom:6.5%;}
+  #cap-act4 h2{font-size:clamp(26px,4.4vw,52px);}
+  #cap-act4 p{font-size:clamp(15px,1.8vw,21px);max-width:760px;}
+  #cap-act5{top:6.5%;}
+  #cap-act5 h2{font-size:clamp(23px,3.4vw,46px);line-height:1.16;max-width:1100px;margin:0 auto;}
+
+  /* finale CTA: lives in the lower band (act-5 copy holds in the top band, so the two
+     never collide) and fades up after the climax settles. Cyan = the positive charge. */
+  #cap-cta{bottom:11%;}
+  #cap-cta .cta-card{display:inline-block;padding:26px 34px 22px;border-radius:20px;background:radial-gradient(120% 140% at 50% 0%,rgba(8,14,24,.72),rgba(4,7,13,.86));border:1px solid rgba(120,160,200,.16);box-shadow:0 18px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.04);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+  #cap-cta .cta-kicker{font-size:clamp(20px,2.6vw,30px);font-weight:800;letter-spacing:-.02em;line-height:1.12;text-shadow:0 2px 22px rgba(0,0,0,.6);text-wrap:balance;}
+  #cap-cta .cta-row{margin-top:22px;display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;}
+  .cta-btn{pointer-events:auto;display:inline-flex;align-items:center;gap:9px;font:600 clamp(14px,1.5vw,16px)/1 'Inter',system-ui,sans-serif;letter-spacing:.01em;color:#04222b;background:linear-gradient(180deg,#5eeaff,#34e1ff);border:0;border-radius:999px;padding:15px 26px;text-decoration:none;cursor:pointer;box-shadow:0 0 0 1px rgba(52,225,255,.5),0 8px 30px rgba(52,225,255,.28),0 2px 10px rgba(0,0,0,.4);transition:transform .25s ease,box-shadow .25s ease;}
+  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(52,225,255,.7),0 12px 42px rgba(52,225,255,.45),0 2px 10px rgba(0,0,0,.4);}
+  .cta-btn .arr{transition:transform .25s ease;}
+  .cta-btn:hover .arr{transform:translateX(4px);}
+  .cta-ghost{pointer-events:auto;display:inline-flex;align-items:center;font:600 clamp(13px,1.4vw,15px)/1 'Inter',system-ui,sans-serif;color:#cdd7e4;text-decoration:none;padding:14px 20px;border-radius:999px;border:1px solid rgba(205,215,228,.28);transition:border-color .25s ease,color .25s ease;}
+  .cta-ghost:hover{border-color:rgba(205,215,228,.6);color:#fff;}
+  #cap-cta .cta-trust{margin-top:16px;font-size:clamp(11px,1.1vw,12px);letter-spacing:.16em;text-transform:uppercase;color:#6b7686;}
+
+  #legend2{position:absolute;top:22px;left:24px;font-size:11px;letter-spacing:.14em;color:#7d8b9e;font-weight:600;opacity:0;text-transform:uppercase;}
+  #illustrative{position:absolute;bottom:18px;right:22px;font-size:10px;letter-spacing:.22em;color:#55606e;opacity:0;text-transform:uppercase;}
+  #badge{position:absolute;left:0;top:0;opacity:0;transform:translate(-50%,-50%);font-size:11px;letter-spacing:.16em;font-weight:700;color:#ffd7dc;background:rgba(255,85,102,.13);border:1px solid rgba(255,85,102,.45);border-radius:999px;padding:7px 14px;white-space:nowrap;backdrop-filter:blur(8px);}
+  #badge-line{position:absolute;left:0;top:0;height:1px;opacity:0;transform-origin:0 50%;background:linear-gradient(90deg,rgba(255,85,102,.0),rgba(255,85,102,.55) 30%,rgba(255,85,102,.55));}
+
+  /* Act-1 selection affordance: a snapping reticle ring with corner ticks + a small
+     callout pill (CONFIG label/badge text only) tethered by a leader line. */
+  #reticle{position:absolute;left:0;top:0;width:118px;height:118px;margin:-59px 0 0 -59px;opacity:0;border-radius:50%;border:1px solid rgba(130,225,255,.75);box-shadow:0 0 22px rgba(52,225,255,.22),inset 0 0 18px rgba(52,225,255,.10);will-change:transform,opacity;}
+  #reticle i{position:absolute;width:13px;height:13px;border:0 solid rgba(170,240,255,.95);}
+  #reticle i:nth-child(1){left:-2px;top:-2px;border-left-width:2px;border-top-width:2px;border-top-left-radius:6px;}
+  #reticle i:nth-child(2){right:-2px;top:-2px;border-right-width:2px;border-top-width:2px;border-top-right-radius:6px;}
+  #reticle i:nth-child(3){left:-2px;bottom:-2px;border-left-width:2px;border-bottom-width:2px;border-bottom-left-radius:6px;}
+  #reticle i:nth-child(4){right:-2px;bottom:-2px;border-right-width:2px;border-bottom-width:2px;border-bottom-right-radius:6px;}
+  #callout{position:absolute;left:96px;top:-26px;white-space:nowrap;font-size:10.5px;letter-spacing:.18em;font-weight:700;color:#cfeeff;text-transform:uppercase;background:rgba(8,14,24,.72);border:1px solid rgba(52,225,255,.4);border-radius:10px;padding:7px 12px;backdrop-filter:blur(8px);}
+  #callout small{display:block;margin-top:3px;font-size:9px;letter-spacing:.22em;color:#7fa9c4;font-weight:600;}
+  #callout::before{content:"";position:absolute;left:-38px;top:50%;width:38px;height:1px;background:linear-gradient(90deg,rgba(52,225,255,0),rgba(52,225,255,.6));}
+
+  /* Act-5 capture counter (numeric only): a quiet fixed HUD readout docked at the
+     lower-left corner — telemetry-weight, well clear of the headline and the panel. */
+  #counter{position:absolute;left:26px;bottom:22px;opacity:0;font-variant-numeric:tabular-nums;font-size:12px;letter-spacing:.3em;font-weight:600;color:#8fb6d2;text-shadow:0 0 14px rgba(52,225,255,.22);}
+  #counter::after{content:"";display:block;margin-top:6px;height:1px;background:linear-gradient(90deg,rgba(52,225,255,.45),rgba(52,225,255,0));}
+
+  /* viewport tracer overlay (act-3 active card → red event) */
+  #tracer{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
+
+  /* Act 3 — a designed three-band stack: held stop (header) · animating chart (middle) ·
+     coda row (footer). Each stop holds in the SAME header slot so it reads as the narration
+     for the chart drawing below it; the three coda cards land together as a finished row. */
+  #act3-stops{position:absolute;left:50%;top:15%;transform:translateX(-50%);width:min(820px,88vw);height:21vh;pointer-events:none;}
+  .stop{position:absolute;left:0;right:0;top:0;text-align:center;opacity:0;}
+  .stop::before{content:"";display:block;width:46px;height:2px;margin:0 auto 18px;background:linear-gradient(90deg,transparent,rgba(120,150,180,.55),transparent);}
+  .stop h2{font-size:clamp(22px,3.4vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.12;max-width:780px;margin:0 auto;}
+  .stop h2{text-shadow:0 2px 22px rgba(0,0,0,.6);}
+  #chartbox{position:absolute;left:50%;top:38%;transform:translateX(-50%);width:min(720px,86vw);opacity:0;}
+  #chartbox svg{width:100%;height:auto;display:block;overflow:visible;}
+  #ev-pulse{transform-box:fill-box;transform-origin:center;animation:evpulse 1.6s ease-out infinite;}
+  @keyframes evpulse{0%{transform:scale(.45);opacity:.9;}70%{transform:scale(1.55);opacity:0;}100%{transform:scale(1.55);opacity:0;}}
+  #coda{position:absolute;left:50%;top:75%;transform:translate(-50%,-50%);display:flex;gap:20px;flex-wrap:nowrap;justify-content:center;align-items:stretch;width:min(960px,92vw);}
+  /* scene-native frosted-glass panels: blur + saturate the field behind them, a thin
+     luminous top edge, and an inner glow; the ACTIVE card lifts and warms. */
+  .coda-card{position:relative;flex:1 1 0;min-width:0;max-width:300px;display:flex;align-items:center;justify-content:center;background:rgba(13,19,31,.46);border:1px solid rgba(150,190,235,.28);border-radius:14px;padding:24px 20px;min-height:96px;font-size:clamp(14px,1.5vw,18px);font-weight:600;color:#dce4ef;letter-spacing:.01em;opacity:0;text-align:center;backdrop-filter:blur(16px) saturate(1.45);-webkit-backdrop-filter:blur(16px) saturate(1.45);box-shadow:inset 0 0 26px rgba(90,160,220,.10),inset 0 1px 0 rgba(190,225,255,.18),0 14px 36px rgba(0,0,0,.45);transition:border-color .35s ease,box-shadow .35s ease,transform .35s ease,color .35s ease;}
+  .coda-card::before{content:"";position:absolute;left:14%;right:14%;top:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(190,228,255,.65),transparent);opacity:.7;}
+  .coda-card.active{border-color:rgba(255,110,128,.55);color:#fff;transform:translateY(-4px);box-shadow:inset 0 0 30px rgba(255,85,102,.13),inset 0 1px 0 rgba(255,210,218,.22),0 18px 40px rgba(0,0,0,.5),0 0 26px rgba(255,85,102,.12);}
+  @media (max-width:680px){
+    #coda{flex-wrap:wrap;top:72%;}
+    .coda-card{flex:1 1 44%;min-height:74px;}
+  }
+
+  /* group labels: a legend row in the clear negative space BELOW the panel's bottom
+     edge (positions projected from the panel's bottom corners each frame) — they never
+     sit on the orbs, the face, or any body copy. Both leader ticks point up at the panel. */
+  .grouplabel{position:absolute;left:0;top:0;opacity:0;transform:translate(-50%,-50%);font-size:clamp(11px,1.2vw,14px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;padding:8px 16px;border-radius:999px;border:1px solid rgba(120,150,180,.3);background:rgba(8,12,20,.62);backdrop-filter:blur(8px);}
+  .grouplabel::after{content:"";position:absolute;left:50%;bottom:100%;width:1px;height:16px;background:linear-gradient(0deg,rgba(140,180,215,.55),rgba(140,180,215,0));}
+  #group-a{color:#bff0ff;border-color:rgba(52,225,255,.4);}
+  #group-b{color:#c6cfdb;}
+
+  #hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:11px;color:#5d6b7d;letter-spacing:.26em;animation:bob 1.8s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,5px);}}
+
+  /* ---- narrow portrait phones: fluid type, safe-area padding, no edge clipping ----
+     Pure overrides — desktop (>700px) is untouched. Headlines/body drop to a vw-fluid
+     scale sized so 1-2 sentence captions fit a 390px width without dominating; HUD
+     furniture (legend, counter, badge, pills) gets safe-area insets and is allowed to
+     wrap instead of running off the right edge. */
+  @media (max-width:700px){
+    .cap{padding:0 6%;}
+    .cap h1,.cap h2{font-size:clamp(20px,5.9vw,27px);line-height:1.18;}
+    .cap p{font-size:clamp(13px,3.8vw,16px);margin-top:9px;max-width:88vw;}
+    #cap-act1{bottom:calc(11% + env(safe-area-inset-bottom,0px));}
+    #cap-act2{bottom:calc(12% + env(safe-area-inset-bottom,0px));}
+    #cap-act2 h2{font-size:clamp(15px,4.6vw,20px);}
+    #cap-act4{bottom:calc(5.5% + env(safe-area-inset-bottom,0px));}
+    #cap-act4 h2{font-size:clamp(20px,6vw,27px);}
+    #cap-act4 p{font-size:clamp(13px,3.8vw,16px);}
+    #cap-act5{top:calc(20px + env(safe-area-inset-top,0px));}
+    #cap-act5 h2{font-size:clamp(16px,4.9vw,21px);line-height:1.3;}
+    #legend2{top:calc(16px + env(safe-area-inset-top,0px));left:16px;right:16px;font-size:10px;letter-spacing:.10em;white-space:normal;line-height:1.6;}
+    #illustrative{bottom:calc(12px + env(safe-area-inset-bottom,0px));right:14px;font-size:9px;letter-spacing:.16em;}
+    #counter{left:18px;bottom:calc(14px + env(safe-area-inset-bottom,0px));font-size:11px;letter-spacing:.22em;}
+    #badge{font-size:10px;max-width:64vw;white-space:normal;text-align:center;padding:6px 11px;line-height:1.5;}
+    #callout{font-size:9.5px;padding:6px 9px;}
+    .grouplabel{font-size:10px;letter-spacing:.13em;white-space:normal;max-width:min(84vw,330px);text-align:center;line-height:1.5;padding:7px 12px;}
+    .grouplabel::after{height:10px;}
+    .stop h2{font-size:clamp(16px,5vw,21px);}
+    #act3-stops{top:13%;height:16vh;}
+    #chartbox{top:33%;}
+    #hint{bottom:calc(18px + env(safe-area-inset-bottom,0px));}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #spacer{height:100vh;}
+    #hint{display:none;}
+    #c{transition:none;}
+  }
+
+  /* ---- minimal site chrome overlaid on the immersive scene ---- */
+  .skip-link{position:fixed;top:-60px;left:14px;z-index:200;background:#34e1ff;color:#04222b;font-weight:600;padding:10px 16px;border-radius:0 0 10px 10px;text-decoration:none;transition:top .2s ease;}
+  .skip-link:focus{top:0;}
+  #site-header :focus-visible,#site-footer :focus-visible{outline:2px solid #34e1ff;outline-offset:3px;border-radius:4px;}
+  #site-header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px clamp(16px,4vw,40px);background:linear-gradient(180deg,rgba(5,7,13,.78),rgba(5,7,13,.18) 75%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+  #site-header .brand img{height:21px;width:auto;display:block;opacity:.96;}
+  #site-header nav{display:flex;align-items:center;gap:clamp(13px,2vw,28px);}
+  #site-header nav a{font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:#9aa6b6;font-weight:500;text-decoration:none;white-space:nowrap;transition:color .2s ease;}
+  #site-header nav a:hover{color:#fff;}
+  #site-header .shop{color:#04222b!important;background:linear-gradient(180deg,#5eeaff,#34e1ff);border-radius:999px;padding:9px 16px;text-transform:none!important;font-weight:600!important;box-shadow:0 0 0 1px rgba(52,225,255,.45),0 6px 22px rgba(52,225,255,.25);transition:transform .2s ease;}
+  #site-header .shop:hover{transform:translateY(-1px);color:#04222b!important;}
+  #navToggle{display:none;background:none;border:0;color:#fff;font-size:21px;line-height:1;cursor:pointer;}
+  #site-footer{position:fixed;bottom:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px clamp(16px,4vw,40px);font-size:11px;letter-spacing:.04em;color:#5a6678;pointer-events:none;background:linear-gradient(0deg,rgba(5,7,13,.55),transparent);}
+  #site-footer a{color:#7d8b9e;text-decoration:none;pointer-events:auto;transition:color .2s ease;}
+  #site-footer a:hover{color:#cdd7e4;}
+  #site-footer .fr{display:flex;gap:16px;align-items:center;}
+  @media (max-width:760px){
+    #site-header nav{position:fixed;top:56px;right:12px;left:12px;flex-direction:column;align-items:stretch;gap:0;background:rgba(8,12,20,.97);border:1px solid rgba(120,160,200,.16);border-radius:14px;padding:8px;backdrop-filter:blur(14px);transform:translateY(-10px);opacity:0;pointer-events:none;transition:.2s ease;}
+    #site-header nav.open{transform:none;opacity:1;pointer-events:auto;}
+    #site-header nav a{padding:13px 12px;border-bottom:1px solid rgba(255,255,255,.05);}
+    #site-header nav .shop{margin:8px;text-align:center;}
+    #navToggle{display:block;}
+    #site-footer .fl{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#ui">Skip to content</a>
+
+<header id="site-header">
+  <a class="brand" href="index.html" aria-label="C-POLAR Technologies — home"><img src="assets/c-polar-white.svg" alt="C-POLAR Technologies"></a>
+  <button id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" onclick="var n=document.getElementById('site-nav'),o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.setAttribute('aria-label',o?'Close menu':'Open menu')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <nav id="site-nav" aria-label="Primary">
+    <a href="about.html">About</a>
+    <a href="solutions.html">Solutions</a>
+    <a href="developments.html">Developments</a>
+    <a href="partners.html">Partners</a>
+    <a href="contact.html">Contact</a>
+    <a class="shop" href="contact.html">Shop Now</a>
+  </nav>
+</header>
+
+<footer id="site-footer">
+  <span class="fl">© 2026 C-POLAR Technologies — Life's Essentials. One Solution.</span>
+  <span class="fr">
+    <a href="about.html">About</a>
+    <a href="solutions.html">Solutions</a>
+    <a href="partners.html">Partners</a>
+    <a href="mailto:info@cpolartechnologies.com">info@cpolartechnologies.com</a>
+  </span>
+</footer>
+
+<div id="poster" aria-hidden="true"></div>
+<canvas id="c" aria-hidden="true"></canvas>
+
+<div id="ui">
+  <div id="scrim"></div>
+
+  <div class="cap" id="cap-act1"><h1></h1><p></p></div>
+
+  <div id="legend2"></div>
+  <div class="cap" id="cap-act2"><h2></h2></div>
+  <div id="badge"></div>
+  <div id="badge-line"></div>
+  <div id="illustrative">Illustrative render</div>
+  <div id="reticle"><i></i><i></i><i></i><i></i><div id="callout"><span></span><small></small></div></div>
+
+  <div id="act3-stops"></div>
+  <div id="chartbox">
+    <svg viewBox="0 0 640 250" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(150,205,250,.50)"/><stop offset="38%" stop-color="rgba(110,170,225,.20)"/><stop offset="100%" stop-color="rgba(120,185,235,0)"/>
+        </linearGradient>
+        <linearGradient id="cliff-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(255,110,128,.50)"/><stop offset="45%" stop-color="rgba(255,85,102,.16)"/><stop offset="100%" stop-color="rgba(255,85,102,.02)"/>
+        </linearGradient>
+        <linearGradient id="scan-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(190,230,255,0)"/><stop offset="55%" stop-color="rgba(190,230,255,.30)"/><stop offset="100%" stop-color="rgba(190,230,255,.06)"/>
+        </linearGradient>
+        <radialGradient id="comet-grad"><stop offset="0%" stop-color="rgba(255,255,255,.95)"/><stop offset="28%" stop-color="rgba(190,230,255,.5)"/><stop offset="100%" stop-color="rgba(190,230,255,0)"/></radialGradient>
+        <radialGradient id="comet-grad-red"><stop offset="0%" stop-color="rgba(255,235,238,.95)"/><stop offset="28%" stop-color="rgba(255,110,128,.55)"/><stop offset="100%" stop-color="rgba(255,110,128,0)"/></radialGradient>
+        <filter id="trace-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3.1"/></filter>
+        <clipPath id="draw-clip"><rect id="chart-clip" x="0" y="0" width="0" height="250"/></clipPath>
+      </defs>
+      <g id="chart-grid"></g>
+      <rect id="threshold-band" x="0" y="178" width="640" height="54" fill="rgba(255,85,102,.045)"/>
+      <line id="threshold-line" x1="0" y1="178" x2="640" y2="178" stroke="rgba(255,110,128,.22)" stroke-width="1" stroke-dasharray="6 7"/>
+      <line x1="0" y1="232" x2="640" y2="232" stroke="rgba(130,155,190,.35)" stroke-width="1"/>
+      <g clip-path="url(#draw-clip)">
+        <path id="area-base" fill="url(#area-grad)"/>
+        <path id="area-cliff" fill="url(#cliff-grad)"/>
+        <path id="chart-ghost" fill="none" stroke="rgba(150,185,220,.30)" stroke-width="1.5" stroke-dasharray="4 6" stroke-linecap="round"/>
+      </g>
+      <path id="chart-base-glow" fill="none" stroke="#86b9e8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".32" filter="url(#trace-glow)"/>
+      <path id="chart-cliff-glow" fill="none" stroke="#ff5566" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity=".42" filter="url(#trace-glow)"/>
+      <path id="chart-base" fill="none" stroke="#b8cde6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="chart-cliff" fill="none" stroke="#ff5566" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="chart-trail-base" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" opacity="0"/>
+      <path id="chart-trail-cliff" fill="none" stroke="#ffd9de" stroke-width="3.4" stroke-linecap="round" opacity="0"/>
+      <line id="chart-scan" x1="0" y1="20" x2="0" y2="232" stroke="url(#scan-grad)" stroke-width="1" opacity="0"/>
+      <g id="chart-node-glow"></g>
+      <g id="chart-nodes"></g>
+      <g id="ev-pulse-wrap" opacity="0"><circle id="ev-pulse" cx="0" cy="0" r="13" fill="none" stroke="#ff5566" stroke-width="1.6"/></g>
+      <circle id="chart-event" r="4" fill="#ff8090" opacity="0" filter="url(#trace-glow)"/>
+      <g id="chart-shed"></g>
+      <circle id="chart-comet" r="11" fill="url(#comet-grad)" opacity="0"/>
+      <circle id="chart-head-ring" r="7.5" fill="none" stroke="rgba(235,245,255,.85)" stroke-width="1.1" opacity="0"/>
+      <circle id="chart-dot" r="3.4" fill="#fff" opacity="0"/>
+    </svg>
+  </div>
+  <div id="coda"></div>
+  <svg id="tracer" aria-hidden="true"><line id="tracer-line" x1="0" y1="0" x2="0" y2="0" stroke="rgba(255,110,128,.5)" stroke-width="1" opacity="0"/><circle id="tracer-dot" r="2.4" fill="#ff7a8a" opacity="0"/></svg>
+
+  <div class="cap" id="cap-act4"><h2></h2><p></p></div>
+  <div class="cap" id="cap-act5"><h2></h2></div>
+  <div class="cap" id="cap-cta">
+    <div class="cta-card">
+      <div class="cta-kicker">Purification that never wears out.</div>
+      <div class="cta-row">
+        <a class="cta-btn" href="contact.html">Request a demo <span class="arr">→</span></a>
+        <a class="cta-ghost" href="solutions.html">Explore solutions</a>
+      </div>
+      <div class="cta-trust">NanoFlashing · permanent positive charge</div>
+    </div>
+  </div>
+  <div class="grouplabel" id="group-a"></div>
+  <div class="grouplabel" id="group-b"></div>
+  <div id="counter">0&thinsp;/&thinsp;0</div>
+
+  <div id="hint">SCROLL ↓</div>
+</div>
+
+<div id="spacer"></div>
+
+<!-- ============================ CONFIG (the injection point) ============================ -->
+<script>
+window.CONFIG = {
+  // ~11 feature items. position pre-baked. treatment + outcome drive the visuals.
+  FEATURES: [
+    { id:'f1',  position:[ -9, 5, -3], label:'Wildfire smoke',  treatment:'halo',  outcome:'hold', badge:'' },
+    { id:'f2',  position:[  7, 3,  2], label:'Virus',  treatment:'halo',  outcome:'fade', badge:'' },
+    { id:'f3',  position:[ -4,-6,  4], label:'Fungi',  treatment:'halo',  outcome:'fade', badge:'' },
+    { id:'f4',  position:[ 10,-2, -5], label:'Bacteria',  treatment:'halo',  outcome:'fade', badge:'' },
+    // Items 5–11 (treatment:'cloud') carry REAL heavy-atom 3D structures (H omitted).
+    // `atoms` = {el,x,y,z} centered on centroid, scaled so the largest bbox extent = 4 units.
+    // `chargeAtoms` = 0-based indices of the charge-locus atoms (glow red in COLORS.negative).
+    // Mapped by molecule (NOT by array order): 5=PFOS 6=nitrate 7=methyl-orange 8=sulfate
+    // 9=sulfamethoxazole 10=2,4-D 11=estrone-3-sulfate.
+    { id:'f5',  position:[ -8, 1,  6], label:'PFAS',  treatment:'cloud', outcome:'hold', badge:'PFOS — net charge −1',
+      moleculeKey:'pfos', chargeAtoms:[0,18,19,20], atoms:[
+        {el:'S',x:1.6338,y:-0.3027,z:-0.0688},{el:'F',x:-0.3072,y:-0.6814,z:-0.2928},{el:'F',x:0.3203,y:-0.6313,z:0.3116},
+        {el:'F',x:0.0284,y:0.2618,z:-0.7483},{el:'F',x:0.6404,y:-0.3581,z:-0.6995},{el:'F',x:-0.0374,y:0.2975,z:0.6909},
+        {el:'F',x:-0.6135,y:-0.3572,z:0.701},{el:'F',x:1.0021,y:0.6467,z:-0.5534},{el:'F',x:0.4635,y:0.7617,z:0.1245},
+        {el:'F',x:-1.0281,y:0.6262,z:0.5534},{el:'F',x:-0.5313,y:0.7685,z:-0.1481},{el:'F',x:0.9295,y:-0.0716,z:0.6527},
+        {el:'F',x:1.4628,y:0.5852,z:0.445},{el:'F',x:-1.002,y:-0.066,z:-0.6799},{el:'F',x:-1.5421,y:0.5534,z:-0.3854},
+        {el:'F',x:-1.8462,y:-0.0919,z:0.4583},{el:'F',x:-1.2828,y:-0.7059,z:0.1943},{el:'F',x:-1.9453,y:-0.4679,z:-0.3279},
+        {el:'O',x:2.0547,y:-0.337,z:0.4324},{el:'O',x:1.9053,y:-0.0506,z:-0.5177},{el:'O',x:1.3652,y:-0.8167,z:-0.1199},
+        {el:'C',x:-0.0032,y:-0.3279,z:-0.0098},{el:'C',x:0.3468,y:-0.0077,z:-0.3971},{el:'C',x:-0.3619,y:-0.0034,z:0.3661},
+        {el:'C',x:0.7498,y:0.3793,z:-0.1458},{el:'C',x:-0.7842,y:0.3722,z:0.1322},{el:'C',x:1.1834,y:0.1688,z:0.2297},
+        {el:'C',x:-1.2218,y:0.1382,z:-0.2247},{el:'C',x:-1.5793,y:-0.2822,z:0.0269}] },
+    { id:'f6',  position:[  3, 7, -2], label:'Nitrate',  treatment:'cloud', outcome:'hold', badge:'NO₃⁻ — net charge −1',
+      moleculeKey:'nitrate', chargeAtoms:[1,2,3], atoms:[
+        {el:'N',x:0,y:0,z:0},{el:'O',x:2.3094,y:0,z:0},{el:'O',x:-1.1547,y:2,z:0},{el:'O',x:-1.1547,y:-2,z:0}] },
+    { id:'f7',  position:[ -6,-3, -6], label:'Dye',  treatment:'cloud', outcome:'hold', badge:'Anionic dye — net charge −1 (sulfonate)',
+      moleculeKey:'dye', chargeAtoms:[0,1,2,3], atoms:[
+        {el:'S',x:-1.7364,y:0.007,z:0.0568},{el:'O',x:-1.9222,y:-0.043,z:-0.3899},{el:'O',x:-1.848,y:-0.3468,z:0.2803},
+        {el:'O',x:-1.8398,y:0.4013,z:0.2019},{el:'N',x:1.8377,y:-0.0055,z:-0.0402},{el:'N',x:0.1853,y:0.0191,z:0.1661},
+        {el:'N',x:0.0149,y:-0.0178,z:-0.1635},{el:'C',x:1.4214,y:0.0008,z:0.0117},{el:'C',x:1.2159,y:0.361,z:-0.0027},
+        {el:'C',x:1.2152,y:-0.3533,z:0.0775},{el:'C',x:-1.2212,y:-0.0002,z:-0.0082},{el:'C',x:0.598,y:0.0131,z:0.1145},
+        {el:'C',x:0.8042,y:0.3671,z:0.0487},{el:'C',x:0.8035,y:-0.3471,z:0.1289},{el:'C',x:-0.3998,y:-0.0119,z:-0.1115},
+        {el:'C',x:2.0778,y:0.3318,z:0.08},{el:'C',x:2.0313,y:-0.351,z:-0.2108},{el:'C',x:-1.0152,y:0.3539,z:-0.0741},
+        {el:'C',x:-1.0154,y:-0.3603,z:0.006},{el:'C',x:-0.6036,y:0.348,z:-0.1259},{el:'C',x:-0.6037,y:-0.3661,z:-0.0458}] },
+    { id:'f8',  position:[  8, 4,  5], label:'Sulfate',  treatment:'cloud', outcome:'hold', badge:'SO₄²⁻ — net charge −2',
+      moleculeKey:'sulfate', chargeAtoms:[1,2,3,4], atoms:[
+        {el:'S',x:0,y:0,z:0},{el:'O',x:2,y:2,z:2},{el:'O',x:2,y:-2,z:-2},{el:'O',x:-2,y:2,z:-2},{el:'O',x:-2,y:-2,z:2}] },
+    { id:'f9',  position:[ -2, 6,  1], label:'Antibiotic',  treatment:'cloud', outcome:'hold', badge:'Sulfamethoxazole — net charge −1',
+      moleculeKey:'sulfamethoxazole', chargeAtoms:[0,2,3,4], atoms:[
+        {el:'S',x:0.1458,y:-1.2143,z:-0.0466},{el:'O',x:-1.4559,y:0.5323,z:-0.5395},{el:'O',x:0.5216,y:-1.7654,z:0.4017},
+        {el:'O',x:-0.031,y:-1.3914,z:-0.8101},{el:'N',x:-0.6445,y:-0.952,z:0.41},{el:'N',x:-1.0625,y:-0.1248,z:-0.5389},
+        {el:'N',x:1.9558,y:1.5175,z:0.0047},{el:'C',x:0.6772,y:-0.4121,z:-0.0315},{el:'C',x:1.16,y:-0.2819,z:0.5524},
+        {el:'C',x:0.6188,y:0.0985,z:-0.6033},{el:'C',x:-1.0169,y:-0.2967,z:0.1646},{el:'C',x:1.5262,y:0.8696,z:-0.0071},
+        {el:'C',x:1.5845,y:0.359,z:0.5646},{el:'C',x:1.0433,y:0.7394,z:-0.5911},{el:'C',x:-1.3525,y:0.1989,z:0.6387},
+        {el:'C',x:-1.6255,y:0.7193,z:0.1649},{el:'C',x:-2.0442,y:1.4041,z:0.2665}] },
+    { id:'f10', position:[  5,-5, -3], label:'Pesticide', treatment:'cloud', outcome:'hold', badge:'2,4-D — net charge −1',
+      moleculeKey:'twofourd', chargeAtoms:[3,4,12], atoms:[
+        {el:'Cl',x:-0.0609,y:-1.1731,z:0.0434},{el:'Cl',x:-2.1015,y:0.1659,z:0.24},{el:'O',x:0.5044,y:0.0159,z:-0.3213},
+        {el:'O',x:1.8985,y:0.4416,z:0.4087},{el:'O',x:1.6598,y:-0.3959,z:-0.1512},{el:'C',x:-0.1005,y:0.0405,z:-0.189},
+        {el:'C',x:-0.42,y:-0.4783,z:-0.0135},{el:'C',x:-0.3996,y:0.5978,z:-0.2316},{el:'C',x:-1.0388,y:-0.4397,z:0.1195},
+        {el:'C',x:-1.0184,y:0.6364,z:-0.0987},{el:'C',x:0.8994,y:0.3823,z:0.0389},{el:'C',x:-1.3379,y:0.1177,z:0.0768},
+        {el:'C',x:1.5154,y:0.089,z:0.0781}] },
+    { id:'f11', position:[ -10,-1, 2], label:'Hormone', treatment:'cloud', outcome:'hold', badge:'Estrone-3-sulfate — net charge −1',
+      moleculeKey:'estronesulfate', chargeAtoms:[0,2,3,4,5], atoms:[
+        {el:'S',x:1.7637,y:-0.1239,z:0.1772},{el:'O',x:-1.8632,y:-0.452,z:-0.0047},{el:'O',x:1.4535,y:0.1378,z:-0.1334},
+        {el:'O',x:1.5279,y:-0.1529,z:0.5641},{el:'O',x:2.1368,y:0.1325,z:0.2099},{el:'O',x:1.8238,y:-0.5232,z:-0.0299},
+        {el:'C',x:-1.0037,y:0.197,z:-0.0505},{el:'C',x:-1.1511,y:-0.2293,z:0.11},{el:'C',x:-0.539,y:0.2566,z:0.0224},
+        {el:'C',x:-0.3017,y:-0.0799,z:-0.2323},{el:'C',x:-0.9405,y:-0.5631,z:-0.151},{el:'C',x:-1.3141,y:0.5033,z:0.1329},
+        {el:'C',x:-0.4643,y:-0.5229,z:-0.1331},{el:'C',x:-0.3853,y:0.6859,z:-0.1086},{el:'C',x:-1.6137,y:-0.17,z:0.0447},
+        {el:'C',x:-1.732,y:0.2862,z:0.0587},{el:'C',x:-1.0891,y:-0.3111,z:0.5768},{el:'C',x:0.1671,y:-0.0247,z:-0.1944},
+        {el:'C',x:0.0702,y:0.7368,z:0.0102},{el:'C',x:0.3373,y:0.3662,z:-0.0931},{el:'C',x:0.4412,y:-0.3517,z:-0.2858},
+        {el:'C',x:0.7703,y:0.4153,z:-0.0703},{el:'C',x:0.8707,y:-0.2979,z:-0.2645},{el:'C',x:1.0353,y:0.0851,z:-0.1554}] },
+  ],
+  CAPTIONS: {
+    act1_headline:"Most pollutants carry a negative charge.", act1_sub:"Hundreds of them — drifting in the air you breathe and the water you drink.",
+    act2_legend:"RED = electron-rich (negative). Standard electrostatic-potential convention.", act2_narration:"It's an anion — more electrons than protons. Those extra electrons crowd onto the most electronegative atoms: oxygen, fluorine, sulfur. And a net negative charge is exactly what a positive surface pulls in.",
+    act4_headline:"And a permanent positive charge is what pulls them in.", act4_sub:"NanoFlashing builds a durable positive charge into the material itself — it never washes out.",
+    act5_headline:"It captures everything negative. The living threats — viruses, bacteria, and fungi — it destroys on contact, by physical action. The charge does the work, and the material never runs out.",
+    group_a:"CAPTURED & HELD", group_b:"CAPTURED & DESTROYED — BY PHYSICAL ACTION",
+  },
+  ACT3_STOPS: [
+    "Rated factory-fresh — not in service. Capture can fall from 85% to 45% in about 11 weeks.",
+    "Under heavy smoke it can lose up to 95% of its cleaning power in minutes — and the airflow never changes, so nothing warns you.",
+    "Up to 12% of trapped spores can drift back into the air.",
+    "A loaded filter can become a source instead of a barrier — at one children's hospital, filter contamination was traced to 14 infections and 6 deaths over two decades.",
+    "The smallest, most harmful particles slip through a mid-size gap."
+  ],
+  ACT3_CODA: ["UV-C only works in the lamp's line of sight.","Ionizers can generate ozone and by-products.","HEPA adds pressure, energy, and hardware."],
+  COLORS: { base:'#05070d', negative:'#ff5566', positive:'#34e1ff' },
+};
+
+/* Immediate (pre-module) DOM fill so the headline + poster paint early (LCP). */
+(function(){
+  var C = window.CONFIG;
+  var a1 = document.getElementById('cap-act1');
+  a1.querySelector('h1').textContent = C.CAPTIONS.act1_headline;
+  a1.querySelector('p').textContent  = C.CAPTIONS.act1_sub;
+  a1.style.opacity = 1;
+
+  // Static poster: inline SVG field of motes (deterministic), shown until WebGL is ready.
+  var rng = (function(s){ return function(){ s|=0; s=s+0x6D2B79F5|0; var t=Math.imul(s^s>>>15,1|s); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; })(42);
+  var dots = '';
+  for (var i=0;i<70;i++){
+    var x=(rng()*100).toFixed(2), y=(rng()*100).toFixed(2);
+    var r=(0.06+rng()*0.22).toFixed(3), o=(0.12+rng()*0.4).toFixed(2);
+    dots += '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#9fb2c9" opacity="'+o+'"/>';
+  }
+  document.getElementById('poster').innerHTML =
+    '<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A dark field of drifting motes">'+
+    '<defs><radialGradient id="pg" cx="50%" cy="42%" r="75%">'+
+    '<stop offset="0%" stop-color="#0a1020"/><stop offset="100%" stop-color="'+C.COLORS.base+'"/>'+
+    '</radialGradient></defs>'+
+    '<rect width="100" height="100" fill="url(#pg)"/>'+dots+'</svg>';
+})();
+</script>
+
+<script>
+/* QA: surface runtime errors visibly when ?debug=1 is present */
+(function(){
+  if (!/[?&]debug=/.test(location.search)) return;
+  var box = null;
+  function show(msg){
+    if (!box){
+      box = document.createElement('div');
+      box.style.cssText = 'position:fixed;z-index:99;top:4px;left:4px;right:4px;background:rgba(122,16,32,.92);color:#fff;font:12px/1.45 monospace;padding:6px;white-space:pre-wrap;';
+      document.body.appendChild(box);
+    }
+    box.textContent += msg + '\n';
+  }
+  addEventListener('error', function(e){ show('ERR: ' + e.message + ' @ ' + (e.filename||'') + ':' + (e.lineno||'')); });
+  addEventListener('unhandledrejection', function(e){ show('REJ: ' + (e.reason && e.reason.message || e.reason)); });
+  var ce = console.error.bind(console);
+  console.error = function(){ show('CONSOLE.ERROR: ' + Array.prototype.map.call(arguments, String).join(' ')); ce.apply(null, arguments); };
+  window.__dbg = show;
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "postprocessing": "https://unpkg.com/postprocessing@6.35.3/build/index.js"
+} }
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import {
+  EffectComposer, RenderPass, EffectPass, Effect,
+  BloomEffect, DepthOfFieldEffect, BlendFunction, KernelSize
+} from 'postprocessing';
+
+const CONFIG = window.CONFIG;
+const N_FEAT = CONFIG.FEATURES.length;
+
+/* ============================== shared utilities ============================== */
+
+const clamp01 = v => Math.min(1, Math.max(0, v));
+const clampR  = (a, b, p) => clamp01((p - a) / (b - a));       // 0→1 across [a,b]
+const easeIO  = t => t * t * (3 - 2 * t);                       // smoothstep ease
+const easeQ   = t => t * t * t * (t * (t * 6 - 15) + 10);       // quintic ease (camera moves)
+const lerp    = (a, b, t) => a + (b - a) * t;
+
+function mulberry32(seed){
+  return function(){
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+/* Classic 3D gradient noise (baked permutation) — basis for the curl flow field. */
+const PERM = new Uint8Array(512);
+{
+  const r = mulberry32(1337);
+  const p = Array.from({ length: 256 }, (_, i) => i);
+  for (let i = 255; i > 0; i--){ const j = Math.floor(r() * (i + 1)); [p[i], p[j]] = [p[j], p[i]]; }
+  for (let i = 0; i < 512; i++) PERM[i] = p[i & 255];
+}
+function fade(t){ return t * t * t * (t * (t * 6 - 15) + 10); }
+function grad(h, x, y, z){
+  h &= 15;
+  const u = h < 8 ? x : y;
+  const v = h < 4 ? y : (h === 12 || h === 14 ? x : z);
+  return ((h & 1) ? -u : u) + ((h & 2) ? -v : v);
+}
+function noise3(x, y, z){
+  const X = Math.floor(x) & 255, Y = Math.floor(y) & 255, Z = Math.floor(z) & 255;
+  x -= Math.floor(x); y -= Math.floor(y); z -= Math.floor(z);
+  const u = fade(x), v = fade(y), w = fade(z);
+  const A = PERM[X] + Y, AA = PERM[A] + Z, AB = PERM[A + 1] + Z;
+  const B = PERM[X + 1] + Y, BA = PERM[B] + Z, BB = PERM[B + 1] + Z;
+  return lerp(
+    lerp(lerp(grad(PERM[AA], x, y, z),     grad(PERM[BA], x - 1, y, z), u),
+         lerp(grad(PERM[AB], x, y - 1, z), grad(PERM[BB], x - 1, y - 1, z), u), v),
+    lerp(lerp(grad(PERM[AA + 1], x, y, z - 1),     grad(PERM[BA + 1], x - 1, y, z - 1), u),
+         lerp(grad(PERM[AB + 1], x, y - 1, z - 1), grad(PERM[BB + 1], x - 1, y - 1, z - 1), u), v), w);
+}
+
+/* Divergence-free curl of a 3-component noise potential, via finite differences. */
+const _n1 = (x, y, z) => noise3(x + 31.4, y + 15.9, z + 26.5);
+const _n2 = (x, y, z) => noise3(x + 12.3, y + 58.1, z + 92.6);
+const _n3 = (x, y, z) => noise3(x + 78.2, y + 44.7, z + 11.8);
+function curl(x, y, z, out){
+  const e = 0.35, i2e = 1 / (2 * e);
+  out[0] = (_n3(x, y + e, z) - _n3(x, y - e, z)) * i2e - (_n2(x, y, z + e) - _n2(x, y, z - e)) * i2e;
+  out[1] = (_n1(x, y, z + e) - _n1(x, y, z - e)) * i2e - (_n3(x + e, y, z) - _n3(x - e, y, z)) * i2e;
+  out[2] = (_n2(x + e, y, z) - _n2(x - e, y, z)) * i2e - (_n1(x, y + e, z) - _n1(x, y - e, z)) * i2e;
+}
+
+/* ============================== environment flags ============================== */
+
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer  = matchMedia('(pointer: fine)').matches;
+const urlP = new URLSearchParams(location.search).get('p');
+const pinnedP = urlP !== null ? clamp01(parseFloat(urlP) || 0) : null;
+// QA hook: ?focus=N pins the Act-1 lens onto feature index N (deterministic hero of one specimen)
+const _focusRaw = new URLSearchParams(location.search).get('focus');
+const focusPin = _focusRaw !== null ? Math.max(0, Math.min(N_FEAT - 1, parseInt(_focusRaw, 10) || 0)) : null;
+
+/* ============================== DOM from CONFIG ============================== */
+
+const $ = id => document.getElementById(id);
+const ui = {
+  scrim: $('scrim'), act1: $('cap-act1'), act2: $('cap-act2'), legend2: $('legend2'),
+  badge: $('badge'), badgeLine: $('badge-line'), illus: $('illustrative'), chartbox: $('chartbox'),
+  act4: $('cap-act4'), act5: $('cap-act5'), cta: $('cap-cta'), ga: $('group-a'), gb: $('group-b'),
+  hint: $('hint'), coda: $('coda'), canvas: $('c'),
+  reticle: $('reticle'), callout: $('callout'), counter: $('counter'),
+  tracerLine: $('tracer-line'), tracerDot: $('tracer-dot'),
+};
+ui.legend2.textContent = CONFIG.CAPTIONS.act2_legend;
+ui.act2.querySelector('h2').textContent = CONFIG.CAPTIONS.act2_narration;
+ui.act4.querySelector('h2').textContent = CONFIG.CAPTIONS.act4_headline;
+ui.act4.querySelector('p').textContent  = CONFIG.CAPTIONS.act4_sub;
+ui.act5.querySelector('h2').textContent = CONFIG.CAPTIONS.act5_headline;
+ui.ga.textContent = CONFIG.CAPTIONS.group_a;
+ui.gb.textContent = CONFIG.CAPTIONS.group_b;
+
+const stopEls = CONFIG.ACT3_STOPS.map(txt => {
+  const d = document.createElement('div');
+  d.className = 'stop';
+  d.innerHTML = '<h2></h2>';
+  d.querySelector('h2').textContent = txt;
+  $('act3-stops').appendChild(d);
+  return d;
+});
+const codaEls = CONFIG.ACT3_CODA.map(txt => {
+  const d = document.createElement('div');
+  d.className = 'coda-card';
+  d.textContent = txt;
+  ui.coda.appendChild(d);
+  return d;
+});
+
+/* Act-3 line chart: value drifts down, then a sharp cliff — rendered as a LUMINOUS
+   data trace: a blurred under-glow stroke + crisp core, a comet head with a hot
+   trailing window, plotted node dots that light as the head passes, a soft area
+   fill clipped to the head, and a pulsing red event marker at the collapse. */
+const CHART = (() => {
+  const pts = [];
+  const rng = mulberry32(77);
+  for (let i = 0; i <= 44; i++){
+    const x = (i / 44) * 430;
+    const y = 40 + (i / 44) * 84 + Math.sin(i * 0.9) * 7.5 + (rng() - 0.5) * 8;
+    pts.push([x, y]);
+  }
+  const last = pts[pts.length - 1];
+  const cliff = [[458, last[1] + 18],[472, last[1] + 48],[486, last[1] + 78],[508, 222],[560, 228],[636, 230]];
+  const d = a => a.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('');
+  const base = $('chart-base'), cl = $('chart-cliff');
+  const baseGlow = $('chart-base-glow'), clGlow = $('chart-cliff-glow');
+  const trailB = $('chart-trail-base'), trailC = $('chart-trail-cliff');
+  const dBase = d(pts), dCliff = d([last].concat(cliff));
+  base.setAttribute('d', dBase);      baseGlow.setAttribute('d', dBase);   trailB.setAttribute('d', dBase);
+  cl.setAttribute('d', dCliff);       clGlow.setAttribute('d', dCliff);    trailC.setAttribute('d', dCliff);
+  const bl = base.getTotalLength(), cll = cl.getTotalLength();
+  for (const el of [base, baseGlow]){ el.style.strokeDasharray = bl;  el.style.strokeDashoffset = bl; }
+  for (const el of [cl, clGlow])    { el.style.strokeDasharray = cll; el.style.strokeDashoffset = cll; }
+  const TRAIL = 52;
+  trailB.style.strokeDasharray = `${TRAIL} ${bl + TRAIL}`;
+  trailC.style.strokeDasharray = `${TRAIL} ${cll + TRAIL}`;
+  // area fills under decline + cliff, down to the y=232 baseline (revealed by #chart-clip)
+  const first = pts[0];
+  $('area-base').setAttribute('d', dBase + `L${last[0].toFixed(1)} 232L${first[0].toFixed(1)} 232Z`);
+  const cliffEnd = cliff[cliff.length - 1];
+  $('area-cliff').setAttribute('d', dCliff + `L${cliffEnd[0]} 232L${last[0].toFixed(1)} 232Z`);
+  // plotted node dots along the decline (every 6th sample), each knowing its arc length;
+  // every dot carries a soft under-glow disc that flares as the comet head passes it
+  const nodes = [];
+  {
+    const g = $('chart-nodes'), gg = $('chart-node-glow');
+    const NS = 'http://www.w3.org/2000/svg';
+    let acc = 0;
+    for (let i = 1; i < pts.length; i++){
+      acc += Math.hypot(pts[i][0] - pts[i-1][0], pts[i][1] - pts[i-1][1]);
+      if (i % 6 === 0){
+        const c = document.createElementNS(NS, 'circle');
+        c.setAttribute('cx', pts[i][0].toFixed(1)); c.setAttribute('cy', pts[i][1].toFixed(1));
+        c.setAttribute('r', 2.9); c.setAttribute('fill', '#eaf4ff'); c.setAttribute('opacity', 0);
+        g.appendChild(c);
+        const gl = document.createElementNS(NS, 'circle');
+        gl.setAttribute('cx', pts[i][0].toFixed(1)); gl.setAttribute('cy', pts[i][1].toFixed(1));
+        gl.setAttribute('r', 6); gl.setAttribute('fill', '#9fd8ff'); gl.setAttribute('opacity', 0);
+        gl.setAttribute('filter', 'url(#trace-glow)');
+        gg.appendChild(gl);
+        nodes.push({ el: c, glow: gl, len: acc });
+      }
+    }
+  }
+  // red event marker at the cliff's first floor contact
+  const evt = cliff[3];
+  $('chart-event').setAttribute('cx', evt[0]); $('chart-event').setAttribute('cy', evt[1]);
+  const pw = $('ev-pulse-wrap');
+  pw.setAttribute('transform', `translate(${evt[0]} ${evt[1]})`);
+  // chart furniture: gridlines + axis ticks (under the data) so the trace reads as a
+  // plotted instrument. Horizontal rules carry a dash so a left→right scan can REVEAL
+  // them just before the data draws; verticals fade in staggered (driven in applyFrame).
+  const hLines = [], vLines = [];
+  {
+    const NS = 'http://www.w3.org/2000/svg';
+    const grid = $('chart-grid');
+    const mk = (x1, y1, x2, y2, stroke, w) => {
+      const l = document.createElementNS(NS, 'line');
+      l.setAttribute('x1', x1); l.setAttribute('y1', y1);
+      l.setAttribute('x2', x2); l.setAttribute('y2', y2);
+      l.setAttribute('stroke', stroke); l.setAttribute('stroke-width', w);
+      grid.appendChild(l);
+      return l;
+    };
+    for (let gy = 24; gy < 232; gy += 52){
+      const l = mk(0, gy, 640, gy, 'rgba(120,150,190,.13)', 1);
+      l.style.strokeDasharray = 640; l.style.strokeDashoffset = 640;
+      hLines.push(l);
+    }
+    for (let gx = 64; gx < 640; gx += 64){
+      const l = mk(gx, 20, gx, 232, 'rgba(120,150,190,.07)', 1);
+      l.setAttribute('opacity', 0);
+      vLines.push(l);
+    }
+    for (let gx = 0; gx <= 640; gx += 64) mk(gx, 232, gx, 238, 'rgba(140,170,205,.42)', 1);
+    for (let gx = 32; gx < 640; gx += 64) mk(gx, 232, gx, 235.5, 'rgba(140,170,205,.22)', 1);   // minor ticks
+    mk(0.5, 18, 0.5, 232, 'rgba(140,170,205,.30)', 1);
+    for (let gy = 24; gy < 232; gy += 52) mk(0, gy, 6, gy, 'rgba(140,170,205,.42)', 1);
+    for (let gy = 50; gy < 232; gy += 52) mk(0, gy, 3.5, gy, 'rgba(140,170,205,.22)', 1);       // minor y ticks
+  }
+  // ghost series: a second cohort that declines less and never collapses —
+  // ambient context revealed by the same draw clip as the area fills
+  {
+    const gp = [];
+    const rg = mulberry32(88);
+    for (let i = 0; i <= 52; i++){
+      const x = (i / 52) * 612;
+      const y = 50 + (i / 52) * 38 + Math.sin(i * 0.7 + 1.6) * 6 + (rg() - 0.5) * 6;
+      gp.push([x, y]);
+    }
+    $('chart-ghost').setAttribute('d', d(gp));
+  }
+  // collapse debris: particles shed off the cliff edge as the red segment draws
+  const shed = [];
+  {
+    const sg = $('chart-shed');
+    const rs = mulberry32(303);
+    for (let k = 0; k < 14; k++){
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('r', (1.0 + rs() * 1.3).toFixed(2));
+      c.setAttribute('fill', k % 3 ? '#ff8090' : '#ffd9de');
+      c.setAttribute('opacity', 0);
+      sg.appendChild(c);
+      const t0 = 0.10 + 0.72 * (k / 13);
+      const sp = cl.getPointAtLength(cll * t0);
+      shed.push({ el: c, t0, sx: sp.x, sy: sp.y, dx: (rs() - 0.5) * 30, fall: 34 + rs() * 44, spin: rs() * 6.28 });
+    }
+  }
+  return { base, cl, baseGlow, clGlow, trailB, trailC, bl, cll, TRAIL, nodes,
+           dot: $('chart-dot'), comet: $('chart-comet'), clip: $('chart-clip'),
+           event: $('chart-event'), pulseWrap: pw, evt,
+           shed, headRing: $('chart-head-ring'),
+           hLines, vLines, scan: $('chart-scan') };
+})();
+
+/* ============================== scroll-progress state ============================== */
+
+const S = { p: pinnedP !== null ? pinnedP : 0 };
+
+/* Per-feature act-5 choreography (derived from CONFIG order, not hardcoded).
+   Landings are staggered across the whole act so the climax stays ALIVE from
+   0.80 all the way to ~0.95 — clear before / mid / after states. */
+const TRAVEL = CONFIG.FEATURES.map((f, i) => {
+  const s0 = 0.802 + i * 0.0095;
+  return { s0, e0: s0 + 0.048 };
+});
+
+/* applyFrame(p): everything that depends on scroll progress alone (DOM layer). */
+function applyFrame(p){
+  S.p = p;
+
+  ui.hint.style.opacity  = 1 - clampR(0.015, 0.05, p);
+  ui.act1.style.opacity  = 1 - clampR(0.05, 0.105, p);
+
+  const a2 = clampR(0.235, 0.27, p) * (1 - clampR(0.415, 0.45, p));
+  ui.legend2.style.opacity = a2;
+  ui.act2.style.opacity = clampR(0.25, 0.285, p) * (1 - clampR(0.40, 0.435, p));
+  ui.illus.style.opacity = a2 * 0.9;
+
+  // Act 3 — scrim, five held stops (header), chart (middle), coda row (footer).
+  // The act runs ~0.425→0.685: scrim holds the whole act; the five stops cycle one-at-a-time
+  // in the header slot while the chart draws its decline+cliff; then the three coda cards
+  // land together as a finished row and hold to the end of the act.
+  ui.scrim.style.opacity = 0.62 * clampR(0.425, 0.455, p) * (1 - clampR(0.672, 0.694, p));
+  // Five stops: each fades in, holds a legible plateau, fades out — sequenced across the
+  // chart-drawing region so exactly one reads at a time and it sits still while it's up.
+  const SREG0 = 0.432, SW = 0.0336;
+  stopEls.forEach((el, i) => {
+    const s = SREG0 + i * SW;
+    const inA = s + 0.004, inB = s + 0.012;
+    const outA = s + SW - 0.013, outB = s + SW - 0.004;
+    el.style.opacity = clampR(inA, inB, p) * (1 - clampR(outA, outB, p));
+  });
+  // Chart: hold visible across the whole stop sequence AND the coda (the active card
+  // traces back to the red event); draw decline then cliff as a luminous trace.
+  const chartVis = clampR(0.428, 0.445, p) * (1 - clampR(0.660, 0.678, p));
+  ui.chartbox.style.opacity = chartVis;
+  // instrument power-up: horizontal rules scan in left→right (staggered), verticals
+  // fade up in sequence — the plot frame assembles just ahead of the data trace
+  const gridT = easeIO(clampR(0.429, 0.475, p));
+  CHART.hLines.forEach((l, i) => {
+    l.style.strokeDashoffset = 640 * (1 - clamp01(gridT * 1.45 - i * 0.11));
+  });
+  CHART.vLines.forEach((l, i) => l.setAttribute('opacity', clampR(0.30 + i * 0.07, 0.55 + i * 0.07, gridT)));
+  const cp = easeIO(clampR(0.432, 0.600, p));
+  const baseT = clamp01(cp / 0.72), cliffT = clamp01((cp - 0.72) / 0.28);
+  CHART.base.style.strokeDashoffset     = CHART.bl * (1 - baseT);
+  CHART.baseGlow.style.strokeDashoffset = CHART.bl * (1 - baseT);
+  CHART.cl.style.strokeDashoffset       = CHART.cll * (1 - cliffT);
+  CHART.clGlow.style.strokeDashoffset   = CHART.cll * (1 - cliffT);
+  const onCliff = cliffT > 0;
+  const headLen = onCliff ? CHART.cll * cliffT : CHART.bl * baseT;
+  const head = onCliff
+    ? CHART.cl.getPointAtLength(headLen)
+    : CHART.base.getPointAtLength(headLen);
+  // hot trailing window behind the comet head (one per segment)
+  const drawing = cp > 0.01 && cp < 0.999;
+  CHART.trailB.style.strokeDashoffset = CHART.TRAIL - CHART.bl * baseT;
+  CHART.trailC.style.strokeDashoffset = CHART.TRAIL - CHART.cll * cliffT;
+  CHART.trailB.setAttribute('opacity', drawing && !onCliff ? 0.55 : 0);
+  CHART.trailC.setAttribute('opacity', drawing && onCliff ? 0.6 : 0);
+  // comet head + core dot
+  CHART.comet.setAttribute('cx', head.x); CHART.comet.setAttribute('cy', head.y);
+  CHART.comet.setAttribute('fill', onCliff ? 'url(#comet-grad-red)' : 'url(#comet-grad)');
+  CHART.comet.setAttribute('opacity', drawing ? 0.95 : 0);
+  CHART.dot.setAttribute('cx', head.x); CHART.dot.setAttribute('cy', head.y);
+  CHART.dot.setAttribute('fill', onCliff ? '#ffe9ec' : '#ffffff');
+  CHART.dot.setAttribute('opacity', cp > 0.01 ? 0.95 : 0);
+  // glowing leading-edge node: a breathing reticle ring rides the comet head
+  CHART.headRing.setAttribute('cx', head.x); CHART.headRing.setAttribute('cy', head.y);
+  CHART.headRing.setAttribute('r', (6.4 + 1.4 * Math.sin(cp * 34)).toFixed(2));
+  CHART.headRing.setAttribute('stroke', onCliff ? 'rgba(255,190,200,.9)' : 'rgba(235,245,255,.85)');
+  CHART.headRing.setAttribute('opacity', drawing ? 0.85 : 0);
+  // debris sheds off the cliff edge while the collapse draws, then falls and fades
+  for (const sd of CHART.shed){
+    if (cliffT <= sd.t0){ sd.el.setAttribute('opacity', 0); continue; }
+    const ft = Math.min(1, (cliffT - sd.t0) / 0.30);
+    sd.el.setAttribute('cx', (sd.sx + sd.dx * ft).toFixed(1));
+    sd.el.setAttribute('cy', (sd.sy + sd.fall * ft * ft + 3 * Math.sin(sd.spin + ft * 9)).toFixed(1));
+    sd.el.setAttribute('opacity', (0.75 * (1 - ft) * (0.6 + 0.4 * Math.sin(sd.spin * 3 + ft * 14))).toFixed(2));
+  }
+  // a vertical scan line rides the comet head while the trace draws — instrument sweep
+  CHART.scan.setAttribute('x1', head.x.toFixed(1)); CHART.scan.setAttribute('x2', head.x.toFixed(1));
+  CHART.scan.setAttribute('opacity', drawing ? 0.8 : 0);
+  // area fill reveals with the head; plotted nodes light as the head passes them,
+  // each flaring hot (dot swells, under-glow blooms) at the moment of the pass
+  CHART.clip.setAttribute('width', Math.max(0, head.x).toFixed(1));
+  const headArc = CHART.bl * baseT;
+  for (const nd of CHART.nodes){
+    const lit = clampR(nd.len - 12, nd.len, headArc);
+    const pop = (drawing && !onCliff) ? Math.exp(-Math.abs(headArc - nd.len) / 26) : 0;
+    nd.el.setAttribute('opacity', lit);
+    nd.el.setAttribute('r', (2.9 + 1.6 * pop).toFixed(2));
+    nd.glow.setAttribute('opacity', (lit * (0.30 + 0.60 * pop)).toFixed(2));
+    nd.glow.setAttribute('r', (6 + 3.5 * pop).toFixed(2));
+  }
+  // red event marker ignites as the collapse lands, then keeps pulsing through the coda
+  const evK = clampR(0.9, 1, cliffT);
+  CHART.event.setAttribute('opacity', evK);
+  CHART.pulseWrap.setAttribute('opacity', evK * 0.8);
+  // Coda: the three frosted panels land TOGETHER (tight stagger) just after the cliff,
+  // then HOLD as a finished row; the spotlight cycles through them (active card) while
+  // a thin tracer ties the active card back to the red event on the chart.
+  const codaOut = 1 - clampR(0.672, 0.690, p);
+  let codaIn = 0;
+  codaEls.forEach((el, i) => {
+    const o = clampR(0.600 + i * 0.006, 0.622 + i * 0.006, p) * codaOut;
+    el.style.opacity = o;
+    codaIn = Math.max(codaIn, o);
+  });
+  const actI = p > 0.618 && p < 0.672 ? Math.min(2, Math.floor(clampR(0.618, 0.672, p) * 3)) : -1;
+  codaEls.forEach((el, i) => el.classList.toggle('active', i === actI && codaIn > 0.5));
+  // shared colour logic: while a failure card is spotlit the red collapse segment and
+  // its event marker burn hotter — chart and cards read as one wired system
+  const tieK = (actI >= 0 && codaIn > 0.5) ? 1 : 0;
+  CHART.clGlow.setAttribute('opacity', (0.42 + 0.26 * tieK).toFixed(2));
+  CHART.event.setAttribute('r', (4 + 1.6 * tieK).toFixed(1));
+  if (actI >= 0 && codaIn > 0.5 && chartVis > 0.05){
+    const svgR = ui.chartbox.querySelector('svg').getBoundingClientRect();
+    const ex = svgR.left + CHART.evt[0] * (svgR.width / 640);
+    const ey = svgR.top  + CHART.evt[1] * (svgR.height / 250);
+    const cr = codaEls[actI].getBoundingClientRect();
+    const cx = cr.left + cr.width / 2, cy = cr.top - 6;
+    ui.tracerLine.setAttribute('x1', ex); ui.tracerLine.setAttribute('y1', ey);
+    ui.tracerLine.setAttribute('x2', cx); ui.tracerLine.setAttribute('y2', cy);
+    ui.tracerDot.setAttribute('cx', cx);  ui.tracerDot.setAttribute('cy', cy);
+    const to = Math.min(codaIn, chartVis) * 0.9;
+    ui.tracerLine.setAttribute('opacity', to);
+    ui.tracerDot.setAttribute('opacity', to);
+  } else {
+    ui.tracerLine.setAttribute('opacity', 0);
+    ui.tracerDot.setAttribute('opacity', 0);
+  }
+
+  // ONE z-ordered text system per act: the act-4 paragraph is FULLY out (by 0.79)
+  // before the act-5 headline enters (0.83) and well before the group pills (0.85+),
+  // so no label or pill can ever sit on still-opaque body copy.
+  const act4Op = clampR(0.69, 0.72, p) * (1 - clampR(0.772, 0.79, p));
+  ui.act4.style.opacity = act4Op;
+  ui.act5.style.opacity = clampR(0.83, 0.87, p);
+  // finale CTA fades up once the climax has settled and holds to the end of the scroll
+  ui.cta.style.opacity = clampR(0.92, 0.965, p);
+  ui.cta.style.pointerEvents = p > 0.93 ? 'auto' : 'none';
+  ui.counter.style.opacity = 0.9 * clampR(0.835, 0.87, p);
+  const gOp = clampR(0.85, 0.89, p) * (act4Op > 0.001 ? 0 : 1);
+  ui.ga.style.opacity = gOp;
+  ui.gb.style.opacity = gOp * (1 - 0.45 * clampR(0.96, 1.0, p));   // group B dims as its items fade out
+}
+applyFrame(S.p);
+
+/* ============================== WebGL world ============================== */
+
+const WORLD_SCALE = 2.2;                 // CONFIG positions → world units
+let GL = null;                           // populated by initGL
+
+function initGL(){
+  /* small/touch device tier: cap devicePixelRatio and thin the particle field so
+     phones render smoothly (decided once at init — orientation flips keep the tier) */
+  const SMALL_DEVICE = matchMedia('(pointer: coarse)').matches || Math.min(screen.width, screen.height) < 720;
+  const MAX_DPR = SMALL_DEVICE ? 1.75 : 2;
+
+  const BASE_COLOR = new THREE.Color(CONFIG.COLORS.base);
+  const renderer = new THREE.WebGLRenderer({ canvas: ui.canvas, antialias: false, alpha: false, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, MAX_DPR));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setClearColor(BASE_COLOR, 1);
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(new THREE.Color(CONFIG.COLORS.base), 0.0058);
+  const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 600);
+  camera.position.set(0, 0, 60);
+
+  /* ---------- responsive 3D reframing (recomputed on every resize) ----------
+     The composition was authored for a ~1.6 landscape frame. On narrow/portrait
+     frames every act reframes so its hero subject stays CENTERED and FULLY
+     visible with margin:
+     · fieldX  — lateral compression of the act-1/2 feature field so lens subjects
+                 stay inside the narrow frame (1 on desktop);
+     · lensR   — magnifier radius (fraction of viewport height) shrinks so the
+                 lens disc itself fits a narrow frame;
+     · dist2K  — act-2 dolly distance multiplier (molecule fully in frame);
+     · dist4/5 — act-4/5 camera pull-back so the WHOLE charged panel (46 wide)
+                 reads as a sheet inside the narrow horizontal FOV;
+     · fog relaxes on portrait so the farther panel framing stays unwashed. */
+  const VIEW = { aspect: 1.6, portrait: false, fieldX: 1, lensR: 0.19, dist2K: 1, dist4: 50, dist5: 49 };
+  const HALF_VFOV_TAN = Math.tan(THREE.MathUtils.degToRad(50 / 2));
+  function computeView(){
+    const a = innerWidth / Math.max(1, innerHeight);
+    VIEW.aspect = a;
+    VIEW.portrait = a < 1.05 || innerWidth < 700;
+    VIEW.fieldX = Math.min(1, Math.max(0.25, 0.27 + (a - 0.46) * 0.986));
+    VIEW.lensR = 0.19 * Math.min(1, a * 1.45);
+    VIEW.dist2K = Math.max(1, 0.82 / a);
+    VIEW.dist4 = Math.max(50, 26.5 / (HALF_VFOV_TAN * a));   // half-width needed: panel 46/2 × 1.15 margin
+    VIEW.dist5 = Math.max(49, 25.9 / (HALF_VFOV_TAN * a));
+    scene.fog.density = VIEW.portrait ? 0.0030 : 0.0058;
+  }
+  computeView();
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+  const key = new THREE.DirectionalLight(0xffffff, 1.2);
+  key.position.set(6, 9, 14);
+  scene.add(key);
+
+  /* ---------- soft round sprite texture (shared) ---------- */
+  const spriteTex = (() => {
+    const cv = document.createElement('canvas'); cv.width = cv.height = 64;
+    const g = cv.getContext('2d');
+    const gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    gr.addColorStop(0, 'rgba(255,255,255,1)');
+    gr.addColorStop(0.4, 'rgba(255,255,255,.55)');
+    gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
+    const t = new THREE.CanvasTexture(cv);
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  })();
+
+  /* ---------- tier A: ambient dust on the curl flow field ---------- */
+  const DUST_N = SMALL_DEVICE ? 1200 : 2200;
+  const DUST_BOX = { cx: 10, cy: 0, cz: 0, hx: 85, hy: 45, hz: 55 };
+  const dustPos = new Float32Array(DUST_N * 3);
+  const dustVel = new Float32Array(DUST_N * 3);
+  {
+    const r = mulberry32(9001);
+    for (let i = 0; i < DUST_N; i++){
+      dustPos[i * 3]     = DUST_BOX.cx + (r() - 0.5) * 2 * DUST_BOX.hx;
+      dustPos[i * 3 + 1] = DUST_BOX.cy + (r() - 0.5) * 2 * DUST_BOX.hy;
+      dustPos[i * 3 + 2] = DUST_BOX.cz + (r() - 0.5) * 2 * DUST_BOX.hz;
+    }
+  }
+  /* depth-graded tiers: far dim motes / mid field / near sparks / rare defocused
+     bokeh discs — colour-temperature variation, depth fade, twinkle, and a
+     per-tier drift speed so the layers parallax against each other */
+  const dustSize = new Float32Array(DUST_N);
+  const dustTint = new Float32Array(DUST_N * 3);
+  const dustSeed = new Float32Array(DUST_N);
+  const dustKind = new Float32Array(DUST_N);
+  const dustSpd  = new Float32Array(DUST_N);
+  {
+    const r = mulberry32(4242);
+    const cool = new THREE.Color(0x6e87ab), neutral = new THREE.Color(0x8a94a3), warm = new THREE.Color(0xb39a80);
+    const tc = new THREE.Color();
+    for (let i = 0; i < DUST_N; i++){
+      const u = r();
+      let s, b, spd;
+      if (u < 0.60)      { s = 0.30 + r() * 0.26; b = 0.26 + r() * 0.26; spd = 0.55; }
+      else if (u < 0.91) { s = 0.60 + r() * 0.46; b = 0.50 + r() * 0.34; spd = 0.85; }
+      else if (u < 0.975){ s = 1.20 + r() * 0.85; b = 0.85 + r() * 0.35; spd = 1.25; }
+      else               { s = 3.40 + r() * 2.80; b = 0.16 + r() * 0.10; spd = 0.70; dustKind[i] = 1; }
+      dustSize[i] = s; dustSpd[i] = spd;
+      tc.copy(cool).lerp(r() < 0.80 ? neutral : warm, 0.25 + r() * 0.75).multiplyScalar(b);
+      tc.toArray(dustTint, i * 3);
+      dustSeed[i] = r() * 100;
+    }
+  }
+  const dustGeo = new THREE.BufferGeometry();
+  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+  dustGeo.setAttribute('aSize', new THREE.BufferAttribute(dustSize, 1));
+  dustGeo.setAttribute('aTint', new THREE.BufferAttribute(dustTint, 3));
+  dustGeo.setAttribute('aSeed', new THREE.BufferAttribute(dustSeed, 1));
+  dustGeo.setAttribute('aKind', new THREE.BufferAttribute(dustKind, 1));
+  const dustMat = new THREE.ShaderMaterial({
+    uniforms: { uTime: { value: 0 }, uGlobal: { value: 0.62 } },
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `
+      attribute float aSize; attribute vec3 aTint; attribute float aSeed; attribute float aKind;
+      uniform float uTime;
+      varying vec3 vT; varying float vKind; varying float vA;
+      void main(){
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        float dist = max(1.0, -mv.z);
+        gl_PointSize = min(aSize * (330.0 / dist), 80.0);
+        gl_Position = projectionMatrix * mv;
+        vT = aTint; vKind = aKind;
+        float tw = 0.74 + 0.26 * sin(uTime * (0.5 + fract(aSeed * 0.13) * 1.3) + aSeed);
+        vA = tw * (0.30 + 0.70 * smoothstep(150.0, 35.0, dist)) * smoothstep(6.0, 16.0, dist);
+      }`,
+    fragmentShader: `
+      uniform float uGlobal;
+      varying vec3 vT; varying float vKind; varying float vA;
+      void main(){
+        vec2 q = gl_PointCoord - 0.5;
+        float r2 = dot(q, q);
+        float core = exp(-r2 * 15.0) * smoothstep(0.25, 0.16, r2);
+        float disc = smoothstep(0.245, 0.205, r2) * (0.40 + 0.60 * smoothstep(0.09, 0.225, r2));
+        float a = mix(core, disc, vKind) * vA * uGlobal;
+        if (a < 0.008) discard;
+        gl_FragColor = vec4(vT, a);
+      }`,
+  });
+  const dust = new THREE.Points(dustGeo, dustMat);
+  dust.frustumCulled = false;
+  scene.add(dust);
+
+  const _c = [0, 0, 0];
+  let dustCursor = 0;
+  function updateDust(dt){
+    // refresh curl velocities round-robin (1/3 per frame), advect all, recycle toroidally
+    const third = Math.ceil(DUST_N / 3);
+    for (let k = 0; k < third; k++){
+      const i = (dustCursor + k) % DUST_N, j = i * 3;
+      curl(dustPos[j] * 0.045, dustPos[j + 1] * 0.045, dustPos[j + 2] * 0.045, _c);
+      dustVel[j] = _c[0]; dustVel[j + 1] = _c[1]; dustVel[j + 2] = _c[2];
+    }
+    dustCursor = (dustCursor + third) % DUST_N;
+    const sp = 1.35 * dt;
+    for (let i = 0; i < DUST_N; i++){
+      const j = i * 3, sk = sp * dustSpd[i];
+      dustPos[j]     += dustVel[j] * sk;
+      dustPos[j + 1] += dustVel[j + 1] * sk;
+      dustPos[j + 2] += dustVel[j + 2] * sk;
+      // toroidal recycle
+      if (dustPos[j]     >  DUST_BOX.cx + DUST_BOX.hx) dustPos[j]     -= DUST_BOX.hx * 2;
+      else if (dustPos[j] < DUST_BOX.cx - DUST_BOX.hx) dustPos[j]     += DUST_BOX.hx * 2;
+      if (dustPos[j + 1] >  DUST_BOX.cy + DUST_BOX.hy) dustPos[j + 1] -= DUST_BOX.hy * 2;
+      else if (dustPos[j + 1] < DUST_BOX.cy - DUST_BOX.hy) dustPos[j + 1] += DUST_BOX.hy * 2;
+      if (dustPos[j + 2] >  DUST_BOX.cz + DUST_BOX.hz) dustPos[j + 2] -= DUST_BOX.hz * 2;
+      else if (dustPos[j + 2] < DUST_BOX.cz - DUST_BOX.hz) dustPos[j + 2] += DUST_BOX.hz * 2;
+    }
+    dustGeo.attributes.position.needsUpdate = true;
+  }
+
+  /* ---------- tier B: CONFIG.FEATURES as sprite points (CPU-mirrored) ---------- */
+  const feat = CONFIG.FEATURES.map((f, i) => ({
+    cfg: f, idx: i,
+    baseRaw: new THREE.Vector3().fromArray(f.position).multiplyScalar(WORLD_SCALE),
+    base: new THREE.Vector3().fromArray(f.position).multiplyScalar(WORLD_SCALE),
+    drift: new THREE.Vector3(),
+    live: new THREE.Vector3().fromArray(f.position).multiplyScalar(WORLD_SCALE),
+    promote: 0, promoteT: 0,
+    haloT: -10,
+    screen: { x: -1e4, y: -1e4, behind: true },
+    landing: null,          // filled below
+  }));
+  /* narrow frames: compress the field laterally so act-1 lens subjects and the
+     act-2 hero molecule never sit off-screen (fieldX = 1 → desktop unchanged) */
+  function refreshField(){
+    for (const f of feat) f.base.set(f.baseRaw.x * VIEW.fieldX, f.baseRaw.y, f.baseRaw.z);
+  }
+  refreshField();
+
+  /* ---------- the positive element: a thin FLAT CHARGED SURFACE (panel) ----------
+     A rectangular sheet of material facing the camera with a slight tilt. Its face
+     carries a faint, even field of small "+" charge marks in COLORS.positive — a
+     surface that was always charged; it never powers on. Items are captured ONTO
+     its face. */
+  const PANEL = { w: 46, h: 30, t: 0.8, center: new THREE.Vector3(62, 0, 8) };
+  const HOLD_MAX = 8;   // capacity for hold-outcome landing sites fed to the face shader
+  const panelFaceMat = new THREE.ShaderMaterial({
+    uniforms: {
+      uColor:  { value: new THREE.Color(CONFIG.COLORS.positive) },
+      uCam:    { value: camera.position },
+      uTime:   { value: 0 },
+      uIgnite: { value: 0 },   // act-4: the field powers on (left→right sweep)
+      uWave:   { value: 0 },   // act-4/5: traveling energy wave over the '+' marks
+      uLand:   { value: Array.from({ length: HOLD_MAX }, () => new THREE.Vector4()) },  // xy=face uv, z=captured, w=anticipation
+      uLandN:  { value: 0 },
+    },
+    vertexShader: `
+      varying vec2 vUv; varying vec3 vWp; varying vec3 vN;
+      void main(){
+        vUv = uv;
+        vec4 wp = modelMatrix * vec4(position, 1.0);
+        vWp = wp.xyz;
+        vN = normalize(mat3(modelMatrix) * normal);
+        gl_Position = projectionMatrix * viewMatrix * wp;
+      }`,
+    fragmentShader: `
+      varying vec2 vUv; varying vec3 vWp; varying vec3 vN;
+      uniform vec3 uColor; uniform vec3 uCam;
+      uniform float uTime, uIgnite, uWave;
+      uniform vec4 uLand[${HOLD_MAX}]; uniform int uLandN;
+      void main(){
+        vec2 q = vUv - 0.5;
+        /* finished edge: soft border vignette + a thin luminous frame band */
+        float face = smoothstep(0.5, 0.455, abs(q.x)) * smoothstep(0.5, 0.455, abs(q.y));
+        float mq = max(abs(q.x), abs(q.y));
+        float frame = smoothstep(0.435, 0.468, mq) * smoothstep(0.5, 0.482, mq);
+        /* regular field of small "+" charge marks */
+        vec2 cell = fract(vUv * vec2(28.0, 18.0)) - 0.5;
+        float armX = smoothstep(0.22, 0.16, abs(cell.x)) * smoothstep(0.06, 0.028, abs(cell.y));
+        float armY = smoothstep(0.22, 0.16, abs(cell.y)) * smoothstep(0.06, 0.028, abs(cell.x));
+        float plus = max(armX, armY);
+        /* act-4 ignition sweep: a hot leading edge powers the field on left→right */
+        float sweep = uIgnite * 1.30;
+        float lit = smoothstep(vUv.x, vUv.x + 0.14, sweep);
+        float edgeGlow = exp(-pow((sweep - 0.06 - vUv.x) / 0.045, 2.0)) * (1.0 - smoothstep(1.08, 1.28, sweep)) * step(0.01, uIgnite);
+        /* moving energy wave: '+' brightness undulates across the lit field */
+        float wv = sin((vUv.x * 1.7 + vUv.y * 0.55) * 13.0 - uTime * 1.7);
+        float bf = 1.0 + uWave * 0.42 * wv;
+        /* capture glow: cells light where items have landed; faint anticipation
+           glow where items are still incoming */
+        float litCell = 0.0, antic = 0.0, relief = 0.0;
+        for (int i = 0; i < ${HOLD_MAX}; i++){
+          if (i >= uLandN) break;
+          vec2 dl = vUv - uLand[i].xy; dl.x *= 1.5333;
+          float dd = dot(dl, dl);
+          litCell += uLand[i].z * exp(-dd * 420.0);
+          antic   += uLand[i].w * exp(-dd * 120.0);
+          /* charge-ripple: each capture site rings the surface around it */
+          float dl1 = sqrt(dd);
+          relief += sin(dl1 * 95.0 - uTime * 2.4) * exp(-dl1 * 9.0) * uLand[i].z;
+        }
+        /* surface physicality: capture ripples + a slow charge undulation shade
+           the face as relief (crest lift / trough fall), and modulate the sheen */
+        float undul = sin(vUv.x * 21.0 + uTime * 0.6) * sin(vUv.y * 15.0 - uTime * 0.85);
+        relief = relief * 0.55 + undul * 0.30 * uWave;
+        vec3 V = normalize(uCam - vWp);
+        float fres = pow(1.0 - abs(dot(normalize(vN), V)), 2.2) * (1.0 + relief * 0.9);
+        vec3 base = vec3(0.040, 0.068, 0.092);             /* dark charged slate */
+        float plusAmp = 0.07 + 0.20 * bf * lit + 0.62 * litCell + 0.20 * antic;
+        vec3 col = base
+          + uColor * (0.03 + 0.055 * lit) * face            /* soft, even glow once lit */
+          + uColor * plus * plusAmp * face                  /* charge marks (wave + capture) */
+          + uColor * edgeGlow * 0.85 * face                 /* ignition leading edge */
+          + uColor * (litCell * 0.28 + antic * 0.08) * face /* under-glow at capture sites */
+          + uColor * frame * (0.04 + 0.10 * uIgnite)        /* thin designed frame line */
+          + uColor * fres * (0.14 + 0.26 * uIgnite);        /* view-dependent glancing sheen */
+        col *= 1.0 + relief * (0.10 + 0.14 * uIgnite) * face;  /* relief shading */
+        gl_FragColor = vec4(col, 1.0);
+      }`,
+  });
+  const panelSideMat = new THREE.MeshStandardMaterial({ color: 0x0d141f, roughness: 0.55, metalness: 0.25 });
+  const panel = new THREE.Mesh(
+    new THREE.BoxGeometry(PANEL.w, PANEL.h, PANEL.t),
+    [panelSideMat, panelSideMat, panelSideMat, panelSideMat, panelFaceMat, panelSideMat]   // +z = charged face
+  );
+  panel.position.copy(PANEL.center);
+  panel.rotation.set(-0.05, -Math.PI / 2 + 0.26, 0.02);    // slight tilt → reads as a real plane in space
+  scene.add(panel);
+  panel.updateMatrixWorld();
+
+  /* Act-4/5 landing spots ON the panel face, grouped by outcome (deterministic, panel-local). */
+  let totalHolds = 0;
+  {
+    let holdRank = 0, fadeRank = 0;
+    const rl = mulberry32(515);
+    for (const f of feat){
+      const hold = f.cfg.outcome === 'hold';
+      const rank = hold ? holdRank++ : fadeRank++;
+      const col = rank % 3, row = Math.floor(rank / 3);
+      const lx = -13 + col * 13 + (rl() - 0.5) * 3.0;
+      const ly = hold ? 9.5 - row * 6.5 + (rl() - 0.5) * 2.0 : -10.5 + (rl() - 0.5) * 1.5;
+      f.landingLocal = new THREE.Vector3(lx, ly, PANEL.t / 2 + 0.25);
+      f.landing = panel.localToWorld(f.landingLocal.clone());
+      if (hold && rank < HOLD_MAX){
+        f.holdSlot = rank;                                       // face-shader landing site
+        f.landUv = { x: lx / PANEL.w + 0.5, y: ly / PANEL.h + 0.5 };
+      }
+    }
+    totalHolds = holdRank;
+    panelFaceMat.uniforms.uLandN.value = Math.min(holdRank, HOLD_MAX);
+  }
+
+  const featGeo = new THREE.BufferGeometry();
+  const featPosArr  = new Float32Array(N_FEAT * 3);
+  const featSizeArr = new Float32Array(N_FEAT).fill(3.4);
+  const featAlphaArr= new Float32Array(N_FEAT).fill(1);
+  const featTintArr = new Float32Array(N_FEAT * 3);
+  const NEUTRAL = new THREE.Color(0xb6c6da), POSC = new THREE.Color(CONFIG.COLORS.positive);
+  for (let i = 0; i < N_FEAT; i++) NEUTRAL.toArray(featTintArr, i * 3);
+  featGeo.setAttribute('position', new THREE.BufferAttribute(featPosArr, 3));
+  featGeo.setAttribute('aSize',  new THREE.BufferAttribute(featSizeArr, 1));
+  featGeo.setAttribute('aAlpha', new THREE.BufferAttribute(featAlphaArr, 1));
+  featGeo.setAttribute('aTint',  new THREE.BufferAttribute(featTintArr, 3));
+  const featMat = new THREE.ShaderMaterial({
+    uniforms: { uMap: { value: spriteTex } },
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `
+      attribute float aSize; attribute float aAlpha; attribute vec3 aTint;
+      varying float vA; varying vec3 vT;
+      void main(){
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        gl_PointSize = aSize * (300.0 / -mv.z);
+        gl_Position = projectionMatrix * mv;
+        vA = aAlpha; vT = aTint;
+      }`,
+    fragmentShader: `
+      uniform sampler2D uMap; varying float vA; varying vec3 vT;
+      void main(){
+        float a = texture2D(uMap, gl_PointCoord).a * vA;
+        if (a < 0.012) discard;
+        gl_FragColor = vec4(vT, a);
+      }`,
+  });
+  const featPoints = new THREE.Points(featGeo, featMat);
+  featPoints.frustumCulled = false;
+  scene.add(featPoints);
+
+  /* ============== discrete glowing molecule (Act-2 hero + loupe interior) ==============
+     The audit-critical rebuild: the molecule is DISCRETE GEOMETRY, never fog —
+     · atoms  = crisp emissive spheres (radius by element) + a tight additive halo sprite
+     · bonds  = luminous struts between pairs closer than 1.35× the median NN distance
+     · charge = CONFIG chargeAtoms glow warm red (COLORS.negative) as a distributed region
+     · haze   = ONE faint additive shell so it stays cinematic without smearing structure */
+  const NEG_COL = new THREE.Color(CONFIG.COLORS.negative);
+  const ATOM_RADIUS = { S: 0.30, Cl: 0.30, P: 0.28, O: 0.21, N: 0.21, C: 0.20, F: 0.165 };
+  /* fresnel rim sheen injected into the standard material — view-dependent
+     silhouette light that gives each sphere form. One shared hook per kind so
+     every atom material compiles to the same two shader programs. */
+  const rimHookBody = shader => {
+    shader.fragmentShader = shader.fragmentShader.replace('#include <emissivemap_fragment>',
+      `#include <emissivemap_fragment>
+      {
+        float rF = pow(1.0 - clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0), 3.0);
+        totalEmissiveRadiance += vec3(0.22, 0.42, 0.68) * rF * 0.9;
+      }`);
+  };
+  const rimHookNeg = shader => {
+    shader.fragmentShader = shader.fragmentShader.replace('#include <emissivemap_fragment>',
+      `#include <emissivemap_fragment>
+      {
+        float rF = pow(1.0 - clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0), 3.0);
+        totalEmissiveRadiance += vec3(0.95, 0.28, 0.34) * rF * 1.05;
+      }`);
+  };
+  /* one material per atom: contact AO (crowded atoms darken) is baked into the
+     colour/emissive; emissive then gets a per-frame depth cue in setMolecule */
+  function makeAtomMat(isNeg, ao){
+    const m = new THREE.MeshStandardMaterial(isNeg
+      ? { color: 0xffd9de, roughness: 0.30, metalness: 0.0, emissive: NEG_COL, emissiveIntensity: 0.85 }
+      : { color: 0xdceafc, roughness: 0.34, metalness: 0.0, emissive: 0x86b4d6, emissiveIntensity: 0.48 });
+    m.color.multiplyScalar(1 - 0.30 * ao);
+    m.emissiveIntensity *= 1 - 0.45 * ao;
+    m.onBeforeCompile = isNeg ? rimHookNeg : rimHookBody;
+    m.customProgramCacheKey = () => isNeg ? 'atom-neg' : 'atom-body';
+    return m;
+  }
+  const atomGeo = new THREE.SphereGeometry(1, 20, 20);
+  const bondGeo = new THREE.CylinderGeometry(1, 1, 1, 10, 1, true);
+  const _bdir = new THREE.Vector3(), _bup = new THREE.Vector3(0, 1, 0);
+
+  function buildMolecule(cfgAtoms, chargeIdx, fitR, seed){
+    const unit = fitR / 2.0;                       // all detail sizes scale with the fit envelope
+    const charge = new Set(chargeIdx || []);
+    const maxR = Math.max(0.5, ...cfgAtoms.map(a => Math.hypot(a.x, a.y, a.z)));
+    const fit = fitR / maxR;
+    const n = cfgAtoms.length;
+    const radScale = (n <= 5 ? 1.5 : n <= 13 ? 1.16 : 1.0) * unit;
+    const P = cfgAtoms.map(a => new THREE.Vector3(a.x * fit, a.y * fit, a.z * fit));
+
+    const group = new THREE.Group();
+    const mats = [];   // { m, base, kind } — driven each frame by setMolecule()
+    const track = (m, base, kind) => { m.transparent = true; m.opacity = 0; mats.push({ m, base, kind }); return m; };
+
+    const bondMat = track(new THREE.MeshBasicMaterial({
+      color: 0xaadcf4, blending: THREE.AdditiveBlending, depthWrite: false,
+    }), 0.95, 'bond');
+    const haloMat = track(new THREE.SpriteMaterial({
+      map: spriteTex, color: 0x6ea6d4, depthWrite: false, blending: THREE.AdditiveBlending,
+    }), 0.12, 'halo');
+    const negHaloMat = track(new THREE.SpriteMaterial({
+      map: spriteTex, color: NEG_COL, depthWrite: false, blending: THREE.AdditiveBlending,
+    }), 0.27, 'negHalo');
+
+    // contact AO: how crowded each atom is by touching neighbours (precomputed)
+    const radii = cfgAtoms.map(a => (ATOM_RADIUS[a.el] || 0.21) * radScale * 0.92);
+    const aoArr = new Array(n).fill(0);
+    for (let i = 0; i < n; i++) for (let k = i + 1; k < n; k++){
+      const touch = (radii[i] + radii[k]) * 1.9;
+      const dd = P[i].distanceTo(P[k]);
+      if (dd < touch){ const w = 1 - dd / touch; aoArr[i] += w; aoArr[k] += w; }
+    }
+
+    const rng = mulberry32(seed);
+    const atoms = [];
+    for (let k = 0; k < n; k++){
+      const a = cfgAtoms[k], isNeg = charge.has(k);
+      const rad = radii[k];                                        // slight gap so bond struts read
+      const mat = track(makeAtomMat(isNeg, Math.min(1, aoArr[k] * 0.5)), 1, isNeg ? 'neg' : 'body');
+      const core = new THREE.Mesh(atomGeo, mat);
+      const halo = new THREE.Sprite(isNeg ? negHaloMat : haloMat);
+      const haloK = isNeg ? 3.1 : 2.2;
+      const scatter = P[k].clone().addScaledVector(
+        new THREE.Vector3(rng() - 0.5, rng() - 0.5, rng() - 0.5).normalize(), (1.5 + rng() * 2.4) * fitR);
+      group.add(core); group.add(halo);
+      atoms.push({ core, halo, haloK, final: P[k], scatter, rad, mat, baseEm: mat.emissiveIntensity, isNeg });
+    }
+
+    // bonds: reconstruct the covalent skeleton from coordinates alone
+    const nn = P.map((pt, i) => {
+      let best = Infinity;
+      for (let k = 0; k < n; k++) if (k !== i) best = Math.min(best, pt.distanceTo(P[k]));
+      return best;
+    }).sort((x, y) => x - y);
+    const thresh = (nn[nn.length >> 1] || 1) * 1.35;
+    const bonds = [];
+    const bondR = 0.072 * radScale;
+    for (let i = 0; i < n; i++) for (let k = i + 1; k < n; k++){
+      const d = P[i].distanceTo(P[k]);
+      if (d > thresh || d < 1e-4) continue;
+      const m = new THREE.Mesh(bondGeo, bondMat);
+      m.position.copy(P[i]).add(P[k]).multiplyScalar(0.5);
+      _bdir.copy(P[k]).sub(P[i]).normalize();
+      m.quaternion.setFromUnitVectors(_bup, _bdir);
+      m.scale.set(bondR, d, bondR);
+      group.add(m);
+      bonds.push({ mesh: m, len: d });
+    }
+
+    // ONE faint electron haze + a warm tint pooled over the charge region
+    const hazeMat = track(new THREE.SpriteMaterial({
+      map: spriteTex, color: 0x2e5a84, depthWrite: false, blending: THREE.AdditiveBlending,
+    }), 0.20, 'haze');
+    const haze = new THREE.Sprite(hazeMat);
+    haze.scale.setScalar(fitR * 3.0);
+    group.add(haze);
+    if (charge.size){
+      const cc = new THREE.Vector3();
+      let cn = 0;
+      for (const k of charge) if (P[k]){ cc.add(P[k]); cn++; }
+      cc.divideScalar(Math.max(1, cn));
+      const nhm = track(new THREE.SpriteMaterial({
+        map: spriteTex, color: NEG_COL, depthWrite: false, blending: THREE.AdditiveBlending,
+      }), 0.16, 'negHaze');
+      const nh = new THREE.Sprite(nhm);
+      nh.position.copy(cc);
+      nh.scale.setScalar(fitR * 1.3);
+      group.add(nh);
+    }
+
+    const M = { group, mats, atoms, bonds, fitR, assembled: -1, bondReveal: 1 };
+    setAssembly(M, 1);
+    return M;
+  }
+
+  /* assembly: atoms condense from the drifting field (staggered) into place,
+     then bonds grow outward from their midpoints. k=1 → final structure. */
+  function setAssembly(M, k){
+    if (Math.abs(k - M.assembled) < 1e-4) return;
+    M.assembled = k;
+    const nA = Math.max(1, M.atoms.length - 1);
+    M.atoms.forEach((a, i) => {
+      const s0 = 0.45 * i / nA;
+      const t = easeIO(clampR(s0, s0 + 0.55, k));
+      a.core.position.lerpVectors(a.scatter, a.final, t);
+      a.halo.position.copy(a.core.position);
+      const s = a.rad * (0.45 + 0.55 * t);
+      a.core.scale.setScalar(s);
+      a.halo.scale.setScalar(s * a.haloK);
+    });
+    const bk = easeIO(clampR(0.62, 0.95, k));
+    M.bondReveal = bk;
+    for (const b of M.bonds){
+      b.mesh.visible = bk > 0.02;
+      b.mesh.scale.y = Math.max(1e-4, b.len * bk);
+    }
+  }
+
+  /* per-frame drive: overall opacity, charge-region boost (red beat), and a
+     depth-cued emissive falloff — atoms nearer the camera read brighter, so the
+     molecule keeps front-to-back form instead of a flat glow */
+  const _aWp = new THREE.Vector3(), _aDir = new THREE.Vector3();
+  function setMolecule(M, opacity, boost, time){
+    const negFactor = 0.6 + 0.9 * boost * (0.85 + 0.15 * Math.sin(time * 2.4));
+    for (const e of M.mats){
+      let o = e.base * opacity;
+      if (e.kind === 'neg' || e.kind === 'negHalo' || e.kind === 'negHaze') o *= negFactor;
+      if (e.kind === 'bond') o *= M.bondReveal;
+      e.m.opacity = Math.min(1, o);
+    }
+    M.group.updateWorldMatrix(true, false);
+    camera.getWorldDirection(_aDir);
+    let dmin = Infinity, dmax = -Infinity;
+    for (const a of M.atoms){
+      a.viewD = _aWp.copy(a.core.position).applyMatrix4(M.group.matrixWorld)
+        .sub(camera.position).dot(_aDir);
+      if (a.viewD < dmin) dmin = a.viewD;
+      if (a.viewD > dmax) dmax = a.viewD;
+    }
+    const span = Math.max(1e-3, dmax - dmin);
+    for (const a of M.atoms){
+      const front = 1 - (a.viewD - dmin) / span;                   // 1 = nearest the camera
+      a.mat.emissiveIntensity = a.baseEm * (0.58 + 0.55 * front) * (a.isNeg ? 0.85 + 1.05 * boost : 1);
+    }
+  }
+
+  /* High-fidelity stand-ins (lens promotion). Cloud features show the SAME discrete
+     structured molecule inside the loupe — the highest-fidelity instance in the piece.
+     Halo features keep the original fused-blob impostor. */
+  /* captured-node mark: bright core + machined capture ring with corner ticks —
+     reads as an engineered docking mount, not a generic glowing blob */
+  const decalTex = (() => {
+    const cv = document.createElement('canvas'); cv.width = cv.height = 128;
+    const g = cv.getContext('2d');
+    const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+    gr.addColorStop(0, 'rgba(255,255,255,.95)');
+    gr.addColorStop(0.18, 'rgba(215,245,255,.75)');
+    gr.addColorStop(0.34, 'rgba(150,220,255,.10)');
+    gr.addColorStop(1, 'rgba(150,220,255,0)');
+    g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
+    g.strokeStyle = 'rgba(190,240,255,.9)';
+    g.lineWidth = 3;
+    g.shadowColor = 'rgba(140,225,255,.8)'; g.shadowBlur = 5;
+    g.beginPath(); g.arc(64, 64, 44, 0, Math.PI * 2); g.stroke();
+    g.lineWidth = 2.4;
+    for (let k = 0; k < 4; k++){
+      const a = k * Math.PI / 2 + Math.PI / 4;
+      g.beginPath();
+      g.moveTo(64 + Math.cos(a) * 38, 64 + Math.sin(a) * 38);
+      g.lineTo(64 + Math.cos(a) * 51, 64 + Math.sin(a) * 51);
+      g.stroke();
+    }
+    const t = new THREE.CanvasTexture(cv);
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  })();
+  const standGeoSphere = new THREE.SphereGeometry(1, 24, 24);
+  const decalGeo = new THREE.CircleGeometry(1.3, 24);
+  const pulseGeo = new THREE.RingGeometry(0.85, 1.0, 40);
+
+  // ---- recognizable premium specimens for the four particle/microbe items ----
+  // (replaces the old fused-blob impostor; same render grade as the molecules:
+  //  discrete, lit, depth-shaded, with the red=negative charge sheen convention.)
+  const _specSph = new THREE.SphereGeometry(1, 18, 18);
+  function addChargeSprites(g, mats, points, scaleK){
+    // red additive halo points = the negative-charge surface sheen (matches the molecules' negHalo)
+    const sm = new THREE.SpriteMaterial({ map: spriteTex, color: NEG_COL.clone(),
+      depthWrite:false, blending: THREE.AdditiveBlending, transparent:true, opacity:0 });
+    sm.userData.maxOpacity = 0.8; mats.push(sm);
+    for (const p of points){ const sp = new THREE.Sprite(sm); sp.position.copy(p); sp.scale.setScalar(scaleK); g.add(sp); }
+  }
+  function buildSpecimen(g, idx, mats, r){
+    const SD = SMALL_DEVICE;
+    const trk = (m, maxOp) => { m.transparent = true; m.opacity = 0; m.userData.maxOpacity = (maxOp==null?1:maxOp); mats.push(m); return m; };
+
+    if (idx === 0){
+      // SOOT / SMOKE PARTICLE AGGREGATE — branched fractal clump of carbon sub-particles.
+      // dark by nature, so a soft cool glow lifts it off the black and a red sheen reads the charge.
+      const body = trk(new THREE.MeshStandardMaterial({ color:0x445166, roughness:0.58, metalness:0.06, emissive:0x36435e, emissiveIntensity:1.05 }), 1);
+      const glowMat = trk(new THREE.SpriteMaterial({ map: spriteTex, color: 0x7d92b6, depthWrite:false, blending: THREE.AdditiveBlending }), 0.42);
+      const glow = new THREE.Sprite(glowMat); glow.scale.setScalar(1.9); g.add(glow);
+      const placed = [new THREE.Vector3(0,0,0)];
+      const core = new THREE.Mesh(_specSph, body); core.scale.setScalar(0.32); g.add(core);
+      const n = SD ? 12 : 18; const chargePts = [];
+      for (let k=0;k<n;k++){
+        const anchor = placed[(r()*placed.length)|0].clone();
+        const dir = new THREE.Vector3(r()-0.5,r()-0.5,r()-0.5).normalize();
+        const pos = anchor.addScaledVector(dir, 0.22 + r()*0.18);
+        if (pos.length() > 1.0) pos.multiplyScalar(1.0/pos.length());
+        placed.push(pos);
+        const m = new THREE.Mesh(_specSph, body); m.position.copy(pos); m.scale.setScalar(0.18 + r()*0.14); g.add(m);
+        if (r() < 0.5) chargePts.push(pos.clone());
+      }
+      addChargeSprites(g, mats, chargePts, 0.5); return;
+    }
+
+    if (idx === 1){
+      // SPIKY CAPSID (virus) — core + radial club spikes + faint envelope + red charge sheen
+      const bodyMat = trk(new THREE.MeshStandardMaterial({ color:0xd7e2f2, roughness:0.34, metalness:0.10, emissive:0x40537a, emissiveIntensity:0.95 }), 1);
+      g.add(new THREE.Mesh(new THREE.IcosahedronGeometry(0.60, 1), bodyMat));
+      const stemGeo = new THREE.CylinderGeometry(0.035, 0.055, 0.30, 6);
+      const stemMat = trk(new THREE.MeshStandardMaterial({ color:0xc8d6ea, roughness:0.40, metalness:0.08, emissive:0x3a4d72, emissiveIntensity:0.8 }), 1);
+      const knobMat = trk(new THREE.MeshStandardMaterial({ color:0xd2e0f4, roughness:0.30, metalness:0.05, emissive:0x49608c, emissiveIntensity:1.05 }), 1);
+      const N = SD ? 34 : 54; const up = new THREE.Vector3(0,1,0); const chargePts = [];
+      for (let k=0;k<N;k++){
+        const y = 1 - (k/(N-1))*2; const rr = Math.sqrt(Math.max(0,1-y*y)); const phi = k * 2.39996323;
+        const dir = new THREE.Vector3(Math.cos(phi)*rr, y, Math.sin(phi)*rr);
+        const stem = new THREE.Mesh(stemGeo, stemMat);
+        stem.position.copy(dir).multiplyScalar(0.72); stem.quaternion.setFromUnitVectors(up, dir); g.add(stem);
+        const knob = new THREE.Mesh(_specSph, knobMat); knob.position.copy(dir).multiplyScalar(0.92); knob.scale.setScalar(0.085); g.add(knob);
+        if (k % 4 === 0) chargePts.push(dir.clone().multiplyScalar(0.95));
+      }
+      const envMat = trk(new THREE.MeshStandardMaterial({ color:0x9fb8e0, roughness:0.2, metalness:0.0, emissive:0x33508a, emissiveIntensity:0.5, side:THREE.BackSide, depthWrite:false }), 0.16);
+      g.add(new THREE.Mesh(new THREE.IcosahedronGeometry(1.04, 2), envMat));
+      addChargeSprites(g, mats, chargePts, 0.34); return;
+    }
+
+    if (idx === 2){
+      // SPORE CLUSTER (fungi) — a few bumpy, granular spheroids
+      const bodyMat = trk(new THREE.MeshStandardMaterial({ color:0xdde6da, roughness:0.52, metalness:0.04, emissive:0x44513c, emissiveIntensity:0.72, flatShading:true }), 1);
+      const lobeGeo = new THREE.IcosahedronGeometry(1, 2);
+      const pos = lobeGeo.attributes.position, v = new THREE.Vector3();
+      for (let i=0;i<pos.count;i++){ v.fromBufferAttribute(pos,i); const d = 1 + (Math.sin(v.x*7)*Math.cos(v.y*6)*Math.sin(v.z*5))*0.12; v.multiplyScalar(d); pos.setXYZ(i, v.x, v.y, v.z); }
+      lobeGeo.computeVertexNormals();
+      const centers = [ new THREE.Vector3(-0.34,0.12,0), new THREE.Vector3(0.30,-0.06,0.10), new THREE.Vector3(0.02,0.40,-0.18), new THREE.Vector3(-0.05,-0.42,0.12) ];
+      const nLobe = SD ? 3 : 4; const chargePts = [];
+      for (let k=0;k<nLobe;k++){
+        const lobe = new THREE.Mesh(lobeGeo, bodyMat); lobe.position.copy(centers[k]);
+        lobe.scale.set(0.42+r()*0.08, 0.50+r()*0.08, 0.42+r()*0.08); lobe.rotation.set(r()*6,r()*6,r()*6); g.add(lobe);
+        for (let j=0;j<3;j++){ const dir=new THREE.Vector3(r()-0.5,r()-0.5,r()-0.5).normalize(); chargePts.push(centers[k].clone().addScaledVector(dir,0.48)); }
+      }
+      addChargeSprites(g, mats, chargePts, 0.30); return;
+    }
+
+    // idx === 3 : ROD CELL (bacteria) — smooth capsule membrane + trailing flagella + red sheen
+    const bodyMat = trk(new THREE.MeshStandardMaterial({ color:0xd9e4f0, roughness:0.28, metalness:0.16, emissive:0x3d5170, emissiveIntensity:0.9 }), 1);
+    const cap = new THREE.Mesh(new THREE.CapsuleGeometry(0.34, 1.0, 8, 18), bodyMat); cap.rotation.z = Math.PI*0.5; g.add(cap);
+    const flMat = trk(new THREE.MeshStandardMaterial({ color:0xb8c8e0, roughness:0.40, metalness:0.05, emissive:0x35496c, emissiveIntensity:0.6 }), 0.9);
+    const nFl = SD ? 2 : 3;
+    for (let k=0;k<nFl;k++){
+      const pts=[]; const off=(k-1)*0.10;
+      for (let s=0;s<=10;s++){ const t=s/10; pts.push(new THREE.Vector3(-0.85 - t*0.95, off + Math.sin(t*9+k)*0.12*t, Math.cos(t*8+k)*0.10*t)); }
+      const tube = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 24, 0.025, 6, false); g.add(new THREE.Mesh(tube, flMat));
+    }
+    const chargePts=[]; for (let k=0;k<8;k++){ const a=k/8*Math.PI*2; chargePts.push(new THREE.Vector3((r()-0.5)*1.0, Math.cos(a)*0.34, Math.sin(a)*0.34)); }
+    addChargeSprites(g, mats, chargePts, 0.30);
+  }
+
+  for (const f of feat){
+    const g = new THREE.Group();
+    const r = mulberry32(100 + f.idx);
+    const mats = [];
+
+    if (f.cfg.treatment === 'cloud' && f.cfg.atoms && f.cfg.atoms.length){
+      // the discrete structured molecule, normalised to a ~1.05 local half-extent so
+      // every molecule fills the magnifier lens equally (none clipped)
+      const M = buildMolecule(f.cfg.atoms, f.cfg.chargeAtoms, 1.05, 300 + f.idx);
+      g.add(M.group);
+      f.standMol = M;
+    } else {
+      // recognizable premium specimen (item 1 soot / 2 virus / 3 spore / 4 rod), by item order
+      buildSpecimen(g, f.idx, mats, r);
+    }
+    g.scale.setScalar(0.001);
+    g.visible = false;
+    scene.add(g);
+    f.standIn = g; f.standMat = mats[0] || null; f.standMats = mats;
+    f.spinAxis = new THREE.Vector3(r() - 0.5, r() - 0.5, r() - 0.5).normalize();
+    f.popT = -10;
+
+    // halo sprite (tap feedback for treatment:'halo')
+    const hm = new THREE.SpriteMaterial({ map: spriteTex, color: 0xaec6e8, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending });
+    const halo = new THREE.Sprite(hm);
+    halo.scale.setScalar(7);
+    scene.add(halo);
+    f.halo = halo;
+
+    // contact shimmer sprite (act 5, outcome:'fade') — small and local to the panel face
+    const sm = new THREE.SpriteMaterial({ map: spriteTex, color: 0xdffaff, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending });
+    const shim = new THREE.Sprite(sm);
+    shim.scale.setScalar(1.8);
+    shim.position.copy(f.landing);
+    scene.add(shim);
+    f.shimmer = shim;
+
+    // captured mark (outcome:'hold'): a flat disc parented to the panel — the item
+    // adheres flat against the face and stays there
+    if (f.cfg.outcome === 'hold'){
+      const dm = new THREE.MeshBasicMaterial({ color: 0xbfeeff, map: decalTex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+      const decal = new THREE.Mesh(decalGeo, dm);
+      decal.position.copy(f.landingLocal);
+      panel.add(decal);
+      f.decalMat = dm;
+      // landing pulse: an expanding ring fires on the snap, then dies — the capture beat
+      const pm = new THREE.MeshBasicMaterial({ color: 0x9fe8ff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
+      const ring = new THREE.Mesh(pulseGeo, pm);
+      ring.position.copy(f.landingLocal).add(new THREE.Vector3(0, 0, 0.06));
+      panel.add(ring);
+      f.pulseMat = pm; f.pulseRing = ring;
+    }
+  }
+
+  /* Act-2 hero molecule instances (one per cloud feature, built lazily, world-scaled) */
+  const HERO_FIT = 2.0, HERO_SCALE = 2.05;
+  const heroMols = new Map();
+  function heroMolecule(i){
+    let M = heroMols.get(i);
+    if (!M){
+      const cfg = CONFIG.FEATURES[i];
+      const atomsSrc = (cfg.atoms && cfg.atoms.length) ? cfg.atoms
+        : [{ el: 'C', x: 0, y: 0, z: 0 }, { el: 'O', x: 1.6, y: 0.4, z: 0.2 }, { el: 'N', x: -1.4, y: 1.0, z: -0.4 }];
+      M = buildMolecule(atomsSrc, cfg.chargeAtoms, HERO_FIT, 700 + i);
+      M.group.visible = false;
+      scene.add(M.group);
+      heroMols.set(i, M);
+    }
+    return M;
+  }
+
+  /* ---------- act-1 click ripple (selection feedback) ---------- */
+  const ringTex = (() => {
+    const cv = document.createElement('canvas'); cv.width = cv.height = 128;
+    const g = cv.getContext('2d');
+    g.strokeStyle = 'rgba(255,255,255,.95)';
+    g.lineWidth = 6;
+    g.shadowColor = 'rgba(255,255,255,.9)';
+    g.shadowBlur = 10;
+    g.beginPath(); g.arc(64, 64, 52, 0, Math.PI * 2); g.stroke();
+    const t = new THREE.CanvasTexture(cv);
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  })();
+  const rippleMat = new THREE.SpriteMaterial({ map: ringTex, color: 0x9fe8ff, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending });
+  const ripple = new THREE.Sprite(rippleMat);
+  ripple.frustumCulled = false;
+  scene.add(ripple);
+
+  /* ---------- post-processing: DoF + bloom + custom optical lens ----------
+     The loupe is REAL GLASS: interior magnification with chromatic fringing,
+     an outer bevel that refracts the starfield outward, a crisp bezel, specular
+     glints + a caustic crescent, and two orbiting tracer dots (charge indicators)
+     that only appear while a subject is locked in the lens. */
+  const LENS_FRAG = `
+    uniform vec2 uCenter; uniform float uRadius; uniform float uStrength; uniform float uLensAspect; uniform float uProbe; uniform float uTime; uniform float uDots;
+    uniform sampler2D uZoomTex; uniform float uMag;
+
+    /* final grade: gentle contrast lift + soft vignette — applied to every pixel */
+    vec3 grade(vec3 c, vec2 guv){
+      c = pow(max(c * 1.07, 0.0), vec3(1.05));
+      vec2 v = guv - 0.5;
+      c *= 1.0 - 0.30 * smoothstep(0.30, 0.72, dot(v, v));
+      return c;
+    }
+
+    void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor){
+      float S = uStrength;
+      vec2 d = uv - uCenter;
+      d.x *= uLensAspect;
+      float t = length(d) / uRadius;
+      vec3 col;
+      if (S < 0.003 || t > 1.12){
+        col = inputColor.rgb;
+      } else if (t > 1.0){
+        /* glass BEVEL: the rim refracts the field outward with a faint chromatic fringe */
+        float b = smoothstep(1.12, 1.0, t) * S;
+        float ca = 0.014 * b;
+        vec2 q;
+        q = d * (1.0 + 0.085 * b + ca); q.x /= uLensAspect; col.r = texture2D(inputBuffer, uCenter + q).r;
+        q = d * (1.0 + 0.085 * b);      q.x /= uLensAspect; col.g = texture2D(inputBuffer, uCenter + q).g;
+        q = d * (1.0 + 0.085 * b - ca); q.x /= uLensAspect; col.b = texture2D(inputBuffer, uCenter + q).b;
+        col = mix(inputColor.rgb, col, b);
+      } else {
+        /* interior: TRUE magnification — samples a dedicated zoomed render pass
+           (no DoF, no bloom) so the lens content genuinely out-resolves the
+           graded field outside. A mild barrel term compresses content toward the
+           rim; the chromatic split grows with radius. */
+        float magEff = mix(1.0, uMag, S);
+        float barrel = 1.0 + 0.22 * t * t * S;
+        vec2 dz = (uv - uCenter) * (uMag / magEff) * barrel;
+        float ca = S * (0.004 + 0.020 * smoothstep(0.30, 1.0, t));
+        vec3 zc;
+        zc.r = texture2D(uZoomTex, vec2(0.5) + dz * (1.0 + ca)).r;
+        zc.g = texture2D(uZoomTex, vec2(0.5) + dz).g;
+        zc.b = texture2D(uZoomTex, vec2(0.5) + dz * (1.0 - ca)).b;
+        col = mix(inputColor.rgb, zc * 1.10, smoothstep(0.0, 0.16, S));
+      }
+      if (S >= 0.003 && t <= 1.12){
+        vec2 nd = d / uRadius;
+        /* crisp dark bezel — it magnifies, it emits nothing */
+        float rim = exp(-pow((t - 1.0) / 0.040, 2.0));
+        col *= 1.0 - 0.92 * S * rim;
+        /* glass catching ambient light: accretion ring + a whisper of disc lift */
+        float ring = exp(-pow((t - 0.885) / 0.026, 2.0));
+        col += vec3(0.72, 0.79, 0.88) * ring * 0.15 * S;
+        col += vec3(0.030, 0.038, 0.052) * S * (1.0 - smoothstep(0.55, 0.98, t));
+        /* specular glints: a long soft highlight upper-left + a small counter-glint */
+        vec2 g1 = nd - vec2(-0.40, 0.42);
+        float spec = exp(-(g1.x * g1.x * 26.0 + g1.y * g1.y * 90.0 + g1.x * g1.y * 38.0));
+        vec2 g2 = nd - vec2(0.33, -0.38);
+        float spec2 = exp(-dot(g2, g2) * 160.0);
+        col += vec3(0.85, 0.92, 1.0) * (spec * 0.30 + spec2 * 0.12) * S;
+        /* caustic crescent hugging the lower-right inner rim */
+        float cres = exp(-pow((t - 0.78) / 0.085, 2.0)) * smoothstep(-0.2, 0.9, dot(normalize(nd + 1e-5), normalize(vec2(0.55, -0.6))));
+        col += vec3(0.35, 0.85, 1.0) * cres * 0.07 * S;
+        /* orbiting tracer dots — charge indicators, only while a subject is locked */
+        float ang = uTime * 0.7;
+        for (int i = 0; i < 2; i++){
+          vec2 dp = 0.93 * vec2(cos(ang + float(i) * 3.14159), sin(ang + float(i) * 3.14159));
+          float dd = exp(-dot(nd - dp, nd - dp) * 700.0);
+          col += vec3(0.48, 0.92, 1.0) * dd * uDots * S * 0.9;
+        }
+        col.r += uProbe * 0.5;   /* debug probe: visibly tint the lens disc */
+      }
+      outputColor = vec4(grade(col, uv), inputColor.a);
+    }`;
+  /* dedicated magnifier pass: the lens interior re-renders the scene through a
+     cropped (zoomed) projection at full drawing-buffer resolution — true optical
+     magnification, sharper than the DoF/bloom-graded base image it sits in */
+  const LENS_MAG = 1.8;
+  const lensRT = new THREE.WebGLRenderTarget(8, 8, {
+    type: THREE.HalfFloatType,
+    samples: Math.min(4, renderer.capabilities.maxSamples || 0),
+  });
+  function sizeLensRT(){
+    const dpr = Math.min(devicePixelRatio, MAX_DPR);
+    lensRT.setSize(Math.round(innerWidth * dpr), Math.round(innerHeight * dpr));
+  }
+  sizeLensRT();
+  class LensEffect extends Effect {
+    constructor(){
+      super('LensEffect', LENS_FRAG, {
+        blendFunction: BlendFunction.NORMAL,
+        uniforms: new Map([
+          ['uCenter', new THREE.Uniform(new THREE.Vector2(0.5, 0.5))],
+          ['uRadius', new THREE.Uniform(VIEW.lensR)],
+          ['uStrength', new THREE.Uniform(0)],
+          ['uLensAspect', new THREE.Uniform(innerWidth / innerHeight)],
+          ['uProbe', new THREE.Uniform(/[?&]debug=4/.test(location.search) ? 1 : 0)],
+          ['uTime', new THREE.Uniform(0)],
+          ['uDots', new THREE.Uniform(0)],
+          ['uZoomTex', new THREE.Uniform(lensRT.texture)],
+          ['uMag', new THREE.Uniform(LENS_MAG)],
+        ]),
+      });
+    }
+  }
+  const lensFx = new LensEffect();
+  const dofFx = new DepthOfFieldEffect(camera, {
+    focusDistance: 0.02, focalLength: 0.06, bokehScale: 1.2, height: 480,
+  });
+  const bloomFx = new BloomEffect({
+    intensity: 0.55, luminanceThreshold: 0.30, luminanceSmoothing: 0.22,
+    mipmapBlur: true, kernelSize: KernelSize.MEDIUM,
+  });
+  const composer = new EffectComposer(renderer, {
+    frameBufferType: THREE.HalfFloatType,
+    multisampling: Math.min(4, renderer.capabilities.maxSamples || 0),   // clean geometry edges (panel)
+  });
+  composer.addPass(new RenderPass(scene, camera));
+  composer.addPass(new EffectPass(camera, dofFx));      // blur by depth (molecule is the focus target)
+  composer.addPass(new EffectPass(camera, bloomFx));    // charge glow + finale bloom
+  composer.addPass(new EffectPass(camera, lensFx));     // lens magnifies the final image
+
+  /* ---------- focus system: lens / DoF / dolly all follow one damped target ---------- */
+  const focusTarget = new THREE.Vector3(0, 0, 0);   // critically-damped (lerp ~0.1)
+  const focusGoal = new THREE.Vector3(0, 0, 0);
+  let lensStrength = 0, lensGoal = 0, focusGlow = 0;
+
+  const pointer = { x: 0, y: 0, has: false, dirty: false };
+  const FOCUS = { mode: finePointer ? 'DRIFT' : 'AUTO_TOUR', idx: -1, lastInput: performance.now(), tourIdx: 0, tourUntil: 0 };
+  const SELECT = { idx: -1, t: -10 };   // explicit click-lock, distinct from hover-magnified
+  // the idle tour showcases the structured molecules (cloud items) before the halo motes
+  const TOUR_ORDER = [...feat.keys()].sort((a, b) =>
+    (feat[a].cfg.treatment === 'cloud' ? 0 : 1) - (feat[b].cfg.treatment === 'cloud' ? 0 : 1) || a - b);
+
+  addEventListener('pointermove', e => {
+    pointer.x = e.clientX; pointer.y = e.clientY;
+    pointer.has = true; pointer.dirty = true;        // consumed in the rAF tick only
+  }, { passive: true });
+
+  addEventListener('click', e => {
+    FOCUS.lastInput = performance.now();
+    const i = pickNearest(e.clientX, e.clientY, 150);
+    if (i < 0){ SELECT.idx = -1; return; }            // click on empty space releases the lock
+    const f = feat[i];
+    FOCUS.idx = i;
+    SELECT.idx = i; SELECT.t = clock; f.popT = clock; // lock + scale-pop + ripple start
+    ui.callout.querySelector('span').textContent = f.cfg.label;
+    ui.callout.querySelector('small').textContent = f.cfg.badge || f.cfg.id.toUpperCase();
+    if (f.cfg.treatment === 'cloud'){
+      cloudIdx = i;
+    } else {
+      f.haloT = clock;                               // soft halo, never the cloud
+    }
+  });
+
+  function pickNearest(px, py, maxPx){
+    let best = -1, bd = maxPx * maxPx;
+    for (const f of feat){
+      if (f.screen.behind) continue;
+      const dx = f.screen.x - px, dy = f.screen.y - py;
+      const d2 = dx * dx + dy * dy;
+      if (d2 < bd){ bd = d2; best = f.idx; }
+    }
+    return best;
+  }
+
+  /* selected cloud feature: defaults to the first treatment:'cloud' entry */
+  let cloudIdx = Math.max(0, CONFIG.FEATURES.findIndex(f => f.treatment === 'cloud'));
+  let act2Adopted = false;
+
+  const _v = new THREE.Vector3();
+  function projectAll(w, h){
+    for (const f of feat){
+      _v.copy(f.live).project(camera);
+      f.screen.behind = _v.z > 1 || _v.z < -1;
+      f.screen.x = (_v.x * 0.5 + 0.5) * w;
+      f.screen.y = (-_v.y * 0.5 + 0.5) * h;
+    }
+  }
+  function projectPoint(v3, out){
+    _v.copy(v3).project(camera);
+    out.x = (_v.x * 0.5 + 0.5) * innerWidth;
+    out.y = (-_v.y * 0.5 + 0.5) * innerHeight;
+    out.behind = _v.z > 1;
+    return out;
+  }
+
+  /* cursor → world point on the z=0 plane (lens "searching" position) */
+  const _ray = new THREE.Vector3();
+  function cursorWorld(out){
+    _ray.set((pointer.x / innerWidth) * 2 - 1, -(pointer.y / innerHeight) * 2 + 1, 0.5).unproject(camera);
+    _ray.sub(camera.position).normalize();
+    const t = -camera.position.z / (_ray.z || -1e-6);
+    out.copy(camera.position).addScaledVector(_ray, Math.max(t, 1));
+    return out;
+  }
+
+  function updateFocus(dt, now){
+    const inAct1 = S.p < 0.235 && !reduceMotion;
+    let focusedIdx = -1;
+    let searching = false;
+
+    if (!inAct1){
+      lensGoal = 0;
+    } else if (focusPin !== null){
+      // QA: hold one feature promoted under the lens (deterministic specimen hero)
+      focusedIdx = focusPin;
+      focusGoal.copy(feat[focusPin].live);
+      lensGoal = 1;
+    } else {
+      // state machine: DRIFT / USER_FOCUS / AUTO_TOUR
+      if (finePointer && FOCUS.mode === 'AUTO_TOUR' && pointer.dirty) FOCUS.mode = 'DRIFT';
+      if (finePointer && pointer.dirty) FOCUS.lastInput = now;
+      if (FOCUS.mode !== 'AUTO_TOUR' && now - FOCUS.lastInput > 2500){
+        FOCUS.mode = 'AUTO_TOUR';
+        FOCUS.tourUntil = 0;
+      }
+      if (FOCUS.mode === 'AUTO_TOUR'){
+        if (now > FOCUS.tourUntil){
+          FOCUS.tourIdx = FOCUS.tourUntil === 0 ? 0 : (FOCUS.tourIdx + 1) % N_FEAT;
+          // pinned QA renders a deterministic frame: hold the first (best) subject forever
+          FOCUS.tourUntil = pinnedP !== null ? now + 1e12 : now + 2000 + (FOCUS.tourIdx % 3) * 1000;
+        }
+        focusedIdx = TOUR_ORDER[FOCUS.tourIdx];
+        focusGoal.copy(feat[focusedIdx].live);
+        lensGoal = 1;
+      } else if (pointer.has){
+        const i = pickNearest(pointer.x, pointer.y, Math.max(90, innerWidth * 0.07));
+        if (i >= 0){
+          FOCUS.mode = 'USER_FOCUS';
+          focusedIdx = i;
+          focusGoal.copy(feat[i].live);
+          lensGoal = 1;
+        } else {
+          FOCUS.mode = 'DRIFT';
+          cursorWorld(focusGoal);
+          lensGoal = 0.45;
+          searching = true;
+        }
+      } else {
+        lensGoal = 0;
+      }
+    }
+    pointer.dirty = false;
+    FOCUS.idx = focusedIdx;
+
+    // critically-damped follow (~0.1 lerp at 60fps), frame-rate independent
+    const kf = 1 - Math.pow(1 - 0.1, dt * 60);
+    focusTarget.lerp(focusGoal, kf);
+    lensStrength += (lensGoal - lensStrength) * Math.min(1, dt * 5);
+    focusGlow += ((focusedIdx >= 0 && inAct1 ? 1 : 0) - focusGlow) * Math.min(1, dt * 6);
+
+    // feature promotion: hide the cheap point, fade in the stand-in (~200 ms).
+    // A click-locked selection stays promoted even when the cursor wanders.
+    for (const f of feat){
+      const want = (inAct1 && ((f.idx === focusedIdx && !searching) || f.idx === SELECT.idx)) ? 1 : 0;
+      f.promote += Math.sign(want - f.promote) * Math.min(dt / 0.2, Math.abs(want - f.promote));
+    }
+  }
+
+  /* ---------- camera choreography ---------- */
+  const camPos = new THREE.Vector3(), camLook = new THREE.Vector3();
+  const ORIGIN = new THREE.Vector3(0, 0, 0);
+  const P1 = new THREE.Vector3(0, 0, 60);
+  const P3 = new THREE.Vector3(0, 3, 64);
+  /* Acts 4-5 HERO framing, derived from the panel's own world transform so the charged
+     surface fills the frame center-weighted (the optical scale of the act-2 molecule):
+     · act 4 — oblique arrival, panel ≈62% of frame height riding high, so the
+       headline + subhead own the clear band under its bottom edge;
+     · act 5 — near-frontal and CLOSER (the biggest beat, ≈66% of frame height),
+       seated low so a long two-sentence headline owns the clear top band and the
+       group pills land in the negative space below the bottom edge. */
+  const panelN = new THREE.Vector3(0, 0, 1).applyQuaternion(panel.quaternion).normalize();
+  const panelR = new THREE.Vector3(1, 0, 0).applyQuaternion(panel.quaternion).normalize();
+  const panelU = new THREE.Vector3(0, 1, 0).applyQuaternion(panel.quaternion).normalize();
+  /* aspect-aware: on narrow frames the camera dollies back (VIEW.dist4/5) so the
+     WHOLE panel fits the horizontal FOV, and the look targets recenter so the
+     sheet sits centered (desktop values reproduce build7 exactly). */
+  const P4 = new THREE.Vector3(), L4 = new THREE.Vector3();
+  const P5 = new THREE.Vector3(), L5 = new THREE.Vector3();
+  function refreshCamAnchors(){
+    P4.copy(PANEL.center).addScaledVector(panelN, VIEW.dist4).addScaledVector(panelR, 10).addScaledVector(panelU, 4);
+    P5.copy(PANEL.center).addScaledVector(panelN, VIEW.dist5).addScaledVector(panelR, 4.5).addScaledVector(panelU, 1.5);
+    if (VIEW.portrait){
+      L4.copy(PANEL.center).addScaledVector(panelU, -1.5);
+      L5.copy(PANEL.center).addScaledVector(panelU, 0.5);
+    } else {
+      L4.copy(PANEL.center).addScaledVector(panelU, -2.9).addScaledVector(panelR, -2.2);
+      L5.copy(PANEL.center).addScaledVector(panelU, 3.2);
+    }
+  }
+  refreshCamAnchors();
+  const _p2 = new THREE.Vector3(), _dir = new THREE.Vector3(), _par = new THREE.Vector3();
+  let parX = 0, parY = 0;
+
+  function updateCamera(dt){
+    const p = S.p;
+    const cloudC = feat[cloudIdx].live;
+
+    camPos.copy(P1);
+    camLook.set(0, 0, 0);
+    // act-1 gentle dolly toward the focus target
+    camPos.addScaledVector(_dir.copy(focusTarget).sub(camLook), 0.05 * focusGlow);
+    camLook.lerp(focusTarget, 0.12 * focusGlow);
+
+    // act 2: dolly into the selected cloud item
+    const k2 = easeQ(clampR(0.22, 0.345, p));
+    if (k2 > 0){
+      _dir.copy(cloudC).sub(P1).normalize();
+      _p2.copy(cloudC).addScaledVector(_dir, -13.5 * VIEW.dist2K);
+      camPos.lerp(_p2, k2);
+      camLook.lerp(cloudC, k2);
+    }
+    // act 3: ease back out behind the scrim
+    const k3 = easeQ(clampR(0.42, 0.50, p));
+    if (k3 > 0){ camPos.lerp(P3, k3); camLook.lerp(ORIGIN, k3); }
+    // act 4: arrive at the charged surface with its OWN move — a slow rising crane
+    // that drifts laterally along the panel while the field ignites (act 5 then settles)
+    const k4 = easeQ(clampR(0.66, 0.755, p));
+    if (k4 > 0){ camPos.lerp(P4, k4); camLook.lerp(L4, k4); }
+    const crane = Math.sin(clampR(0.685, 0.80, p) * Math.PI);
+    if (crane > 0){
+      camPos.x -= crane * 2.6;
+      camPos.y += crane * 2.1;
+      camPos.z += crane * 1.4;
+    }
+    // act 5: settle closer while the outcomes play out
+    const k5 = easeQ(clampR(0.80, 0.92, p));
+    if (k5 > 0){ camPos.lerp(P5, k5); camLook.lerp(L5, k5); }
+
+    // slight cursor parallax (never drives p)
+    if (finePointer && !reduceMotion && pointer.has){
+      const tx = (pointer.x / innerWidth - 0.5) * 2, ty = (pointer.y / innerHeight - 0.5) * 2;
+      parX += (tx - parX) * Math.min(1, dt * 3);
+      parY += (ty - parY) * Math.min(1, dt * 3);
+    }
+    // parallax fades out through act 2–3, then returns gently so the flat
+    // charged surface reads as a real plane in space
+    const parAmt = Math.max(1 - clampR(0.20, 0.30, S.p), 0.55 * clampR(0.66, 0.74, S.p));
+    _par.set(parX * 1.5, -parY * 1.0, 0).multiplyScalar(parAmt);
+    camPos.add(_par);
+
+    camera.position.copy(camPos);
+    camera.lookAt(camLook);
+  }
+
+  /* ---------- per-frame feature update (drift, acts 4–5 outcomes) ---------- */
+  const _cv = [0, 0, 0];
+  let capturedCount = 0;                                  // act-5 on-surface counter source
+  function updateFeatures(dt, now){
+    const p = S.p;
+    const cloudVis = clampR(0.235, 0.27, p) * (1 - clampR(0.415, 0.45, p));
+    const bias4 = 0.22 * easeIO(clampR(0.66, 0.80, p));   // drift biases toward the surface
+    capturedCount = 0;
+
+    for (const f of feat){
+      const i = f.idx, j = i * 3;
+      if (!reduceMotion){
+        curl(f.base.x * 0.05 + 7.3, f.base.y * 0.05 + now * 0.00009, f.base.z * 0.05, _cv);
+        f.drift.x += (_cv[0] * 1.15 - f.drift.x * 0.35) * dt;
+        f.drift.y += (_cv[1] * 1.15 - f.drift.y * 0.35) * dt;
+        f.drift.z += (_cv[2] * 1.15 - f.drift.z * 0.35) * dt;
+        f.drift.clampLength(0, 2.6);
+      }
+      const tr = TRAVEL[i];
+      // act-5 travel: fast launch, decisive deceleration — the node SNAPS onto the grid
+      const travel = 1 - Math.pow(1 - clampR(tr.s0, tr.e0, p), 3);
+      const k = Math.max(travel, bias4);
+      f.live.copy(f.base).add(f.drift).lerp(f.landing, k);
+
+      f.live.toArray(featPosArr, j);
+
+      // point alpha/size: hide under promotion, under the act-2 molecule, and on act-5 fade-out
+      let alpha = 1 - f.promote;
+      let size = 3.4;
+      if (i === cloudIdx) alpha *= 1 - cloudVis;
+      const arrived = travel >= 1;
+      if (f.cfg.outcome === 'fade'){
+        const shrink = easeIO(clampR(0.93, 0.985, p));
+        size *= 1 - shrink;
+        alpha *= 1 - shrink * 0.97;
+        // contact shimmer: small, static, local to the contact point (0.90–1.00 beat)
+        const win = clampR(0.90, 0.925, p) * (1 - clampR(0.955, 0.985, p));
+        f.shimmer.material.opacity = arrived ? win * (0.5 + 0.5 * Math.sin(now * 0.018 + i * 2.1)) * 0.85 : 0;
+      } else {
+        // captured: on contact the glow point snaps into a mark on the panel face,
+        // fires a landing pulse ring, lights its grid cell, and gently breathes there
+        const approach = travel * clampR(0.80, 0.90, p);
+        const adhere = easeIO(clampR(tr.e0 - 0.02, tr.e0 + 0.015, p));
+        NEUTRAL.toArray(featTintArr, j);
+        if (approach > 0){
+          featTintArr[j]     = lerp(featTintArr[j],     POSC.r * 0.85 + 0.15, approach * 0.8);
+          featTintArr[j + 1] = lerp(featTintArr[j + 1], POSC.g * 0.85 + 0.15, approach * 0.8);
+          featTintArr[j + 2] = lerp(featTintArr[j + 2], POSC.b * 0.85 + 0.15, approach * 0.8);
+        }
+        const inAct5 = clampR(0.80, 0.82, p);
+        const pk = clampR(tr.e0 - 0.006, tr.e0 + 0.042, p);          // landing-pulse window
+        if (f.decalMat){
+          f.decalMat.opacity = adhere * (0.80 + 0.16 * Math.sin(now * 0.0021 + i * 1.9));
+          alpha *= 1 - adhere * 0.75;
+          size *= (1 - adhere * 0.45) * (1 + 0.55 * Math.sin(Math.min(1, pk) * Math.PI) * inAct5);
+        }
+        if (f.pulseMat){
+          f.pulseMat.opacity = Math.sin(Math.min(1, pk) * Math.PI) * 0.85 * inAct5;
+          f.pulseRing.scale.setScalar(0.7 + 3.1 * pk);
+        }
+        if (f.holdSlot !== undefined){
+          // feed the face shader: lit cell once captured, faint anticipation while incoming
+          const antic = 0.45 * clampR(0.695, 0.78, p) * (1 - travel);
+          panelFaceMat.uniforms.uLand.value[f.holdSlot].set(f.landUv.x, f.landUv.y, adhere, antic);
+          if (adhere > 0.6) capturedCount++;
+        }
+      }
+      // persistent click-selection read (act 1): cyan-tinted, slightly larger point
+      if (S.p < 0.235){
+        const selK = i === SELECT.idx ? 0.7 : 0;
+        featTintArr[j]     = lerp(NEUTRAL.r, POSC.r, selK);
+        featTintArr[j + 1] = lerp(NEUTRAL.g, POSC.g, selK);
+        featTintArr[j + 2] = lerp(NEUTRAL.b, POSC.b, selK);
+        if (selK > 0) size *= 1.22;
+      }
+      featAlphaArr[i] = alpha;
+      featSizeArr[i] = size;
+
+      // promoted stand-in (lens focus) — for cloud items this is the discrete molecule;
+      // a click-pop briefly swells it, and a locked selection runs a hotter charge read
+      const vis = f.promote > 0.01;
+      f.standIn.visible = vis;
+      if (vis){
+        const pop = 1 + 0.22 * Math.max(0, Math.exp(-(now / 1000 - f.popT) * 5)) * (now / 1000 > f.popT ? 1 : 0);
+        f.standIn.position.copy(f.live);
+        f.standIn.scale.setScalar(3.55 * (0.8 + 0.2 * f.promote) * pop);
+        if (f.standMol){
+          setMolecule(f.standMol, f.promote, i === SELECT.idx ? 0.6 : 0.32, now / 1000);
+        } else {
+          for (const m of f.standMats) m.opacity = f.promote * (m.userData.maxOpacity == null ? 1 : m.userData.maxOpacity);
+          if (f.standMat) f.standMat.emissiveIntensity = 1.0 + (i === SELECT.idx ? 0.5 : 0);
+        }
+        f.standIn.rotateOnAxis(f.spinAxis, dt * 0.5);
+      }
+
+      // halo tap feedback
+      const ht = (now / 1000) - f.haloT;
+      if (ht > 0 && ht < 1.4){
+        const e = Math.exp(-ht * 2.6);
+        f.halo.material.opacity = 0.4 * e;
+        f.halo.scale.setScalar(6 + ht * 5);
+        f.halo.position.copy(f.live);
+      } else f.halo.material.opacity = 0;
+    }
+    featGeo.attributes.position.needsUpdate = true;
+    featGeo.attributes.aAlpha.needsUpdate = true;
+    featGeo.attributes.aSize.needsUpdate = true;
+    featGeo.attributes.aTint.needsUpdate = true;
+  }
+
+  /* ---------- group labels + badge + reticle + counter (HTML over canvas, projected) ---------- */
+  const _scr = { x: 0, y: 0, behind: false };
+  // the pills form a legend row in the clear negative space BELOW the panel: their row
+  // sits a fixed offset under the LOWEST projected bottom corner (the edge is tilted),
+  // so no label can ever sit on the face, the orbs, or any body copy. The counter is a
+  // fixed corner HUD (styled in CSS) — no projection at all.
+  const pillAnchorA = panel.localToWorld(new THREE.Vector3(-PANEL.w * 0.24, -PANEL.h / 2, 1.2));
+  const pillAnchorB = panel.localToWorld(new THREE.Vector3( PANEL.w * 0.24, -PANEL.h / 2, 1.2));
+  const panelBL = panel.localToWorld(new THREE.Vector3(-PANEL.w / 2, -PANEL.h / 2, 1.2));
+  const panelBR = panel.localToWorld(new THREE.Vector3( PANEL.w / 2, -PANEL.h / 2, 1.2));
+  let counterShown = -1;
+  function updateOverlays(){
+    const p = S.p;
+    if (p > 0.80){
+      projectPoint(panelBL, _scr); let edgeY = _scr.behind ? -1e4 : _scr.y;
+      projectPoint(panelBR, _scr); edgeY = Math.max(edgeY, _scr.behind ? -1e4 : _scr.y);
+      if (VIEW.portrait){
+        /* narrow frames: the side-by-side legend row can't fit — STACK the pills
+           centered under the panel, shifted up if they'd crowd the bottom safe
+           band (the counter HUD owns the last ~56px of the lower-left corner) */
+        const cx = innerWidth / 2;
+        const hA = ui.ga.offsetHeight || 30, hB = ui.gb.offsetHeight || 30;
+        let yA = edgeY + 28 + hA / 2;
+        let yB = yA + hA / 2 + 10 + hB / 2;
+        const over = yB + hB / 2 - (innerHeight - 58);
+        if (over > 0){ yA -= over; yB -= over; }
+        ui.ga.style.transform = `translate(-50%,-50%) translate(${cx}px,${yA}px)`;
+        ui.gb.style.transform = `translate(-50%,-50%) translate(${cx}px,${yB}px)`;
+      } else {
+        const rowY = Math.min(innerHeight - 30, edgeY + 38);
+        projectPoint(pillAnchorA, _scr);
+        if (!_scr.behind){
+          const x = Math.min(innerWidth - 110, Math.max(110, _scr.x));
+          ui.ga.style.transform = `translate(-50%,-50%) translate(${x}px,${rowY}px)`;
+        }
+        projectPoint(pillAnchorB, _scr);
+        if (!_scr.behind){
+          const x = Math.min(innerWidth - 110, Math.max(110, _scr.x));
+          ui.gb.style.transform = `translate(-50%,-50%) translate(${x}px,${rowY}px)`;
+        }
+      }
+      if (capturedCount !== counterShown){
+        counterShown = capturedCount;
+        ui.counter.textContent = `${String(capturedCount).padStart(2, '0')} / ${String(totalHolds).padStart(2, '0')}`;
+      }
+    }
+    const a2 = clampR(0.25, 0.285, p) * (1 - clampR(0.40, 0.435, p));
+    if (a2 > 0.01){
+      const f = feat[cloudIdx];
+      projectPoint(f.live, _scr);
+      // badge annotates from outside the molecule, tied back by a leader line
+      // (margin tracks the rendered pill width so it can never clip a narrow frame)
+      const bm = Math.max(VIEW.portrait ? 60 : 100, (ui.badge.offsetWidth || 0) / 2 + 12);
+      const bx = Math.min(innerWidth - bm, Math.max(bm, _scr.x + innerWidth * 0.21));
+      const by = Math.min(innerHeight - 70, Math.max(70, _scr.y - innerHeight * 0.23));
+      ui.badge.style.transform = `translate(-50%,-50%) translate(${bx}px,${by}px)`;
+      ui.badge.textContent = f.cfg.badge || f.cfg.label;
+      ui.badge.style.opacity = a2;
+      const ldx = bx - _scr.x, ldy = by - _scr.y;
+      const llen = Math.hypot(ldx, ldy);
+      ui.badgeLine.style.width = Math.max(0, llen - 52) + 'px';
+      ui.badgeLine.style.transform = `translate(${_scr.x}px,${_scr.y}px) rotate(${Math.atan2(ldy, ldx)}rad)`;
+      ui.badgeLine.style.opacity = a2 * 0.85;
+    } else { ui.badge.style.opacity = 0; ui.badgeLine.style.opacity = 0; }
+    // act-1 click-lock reticle + callout (snaps onto the selected item)
+    const since = clock - SELECT.t;
+    const selVis = (SELECT.idx >= 0 && p < 0.235 && since > 0)
+      ? Math.min(1, since * 3.5) * (1 - clampR(0.19, 0.232, p)) : 0;
+    if (selVis > 0.01){
+      projectPoint(feat[SELECT.idx].live, _scr);
+      if (!_scr.behind){
+        const snap = 1 + 0.6 * Math.exp(-since * 6);
+        ui.reticle.style.transform = `translate(${_scr.x}px,${_scr.y}px) scale(${snap.toFixed(3)})`;
+        ui.reticle.style.opacity = selVis;
+      } else ui.reticle.style.opacity = 0;
+    } else ui.reticle.style.opacity = 0;
+  }
+
+  /* ---------- master per-tick update ---------- */
+  let clock = 0;
+  let firstFrame = true;
+  function update(dt, now){
+    clock = now / 1000;
+    const p = pinnedP !== null ? pinnedP : S.p;
+    if (pinnedP !== null && Math.abs(S.p - pinnedP) > 1e-6) applyFrame(pinnedP);
+
+    // adopt the toured/clicked item for the act-2 cloud at the act boundary
+    if (p > 0.21 && !act2Adopted){
+      act2Adopted = true;
+      if (FOCUS.idx >= 0 && feat[FOCUS.idx].cfg.treatment === 'cloud'){
+        cloudIdx = FOCUS.idx;
+      }
+    } else if (p < 0.19) act2Adopted = false;
+    if (p > 0.24 && SELECT.idx >= 0) SELECT.idx = -1;   // act-1 lock releases past the act
+
+    updateFocus(dt, now);
+    updateFeatures(dt, now);
+    if (!reduceMotion) updateDust(dt);
+    updateCamera(dt);
+    camera.updateMatrixWorld();
+    projectAll(innerWidth, innerHeight);
+    updateOverlays();
+
+    /* act-2 hero molecule: condense from the field, slow-rotate, breathe; the charge
+       region brightens through the red beat. Discrete geometry — never fog. */
+    const cloudVis = clampR(0.235, 0.27, p) * (1 - clampR(0.415, 0.45, p));
+    const redBoost = clampR(0.335, 0.395, p);
+    const tMol = reduceMotion ? 3.0 : clock;
+    /* particle-field life: twinkle clock + act-graded density (recede behind the
+       act-2 hero and the act-3 scrim, re-densify for the finale) */
+    dustMat.uniforms.uTime.value = tMol;
+    dustMat.uniforms.uGlobal.value = 0.62 * (1 - 0.45 * cloudVis
+      - 0.40 * clampR(0.45, 0.48, p) * (1 - clampR(0.655, 0.69, p))
+      + 0.30 * clampR(0.80, 0.88, p));
+    const hero = heroMolecule(cloudIdx);
+    for (const [hi, HM] of heroMols) HM.group.visible = hi === cloudIdx && cloudVis > 0.004;
+    if (cloudVis > 0.004){
+      hero.group.position.copy(feat[cloudIdx].live);
+      setAssembly(hero, easeIO(clampR(0.243, 0.345, p)));
+      setMolecule(hero, cloudVis, redBoost, tMol);
+      hero.group.scale.setScalar(HERO_SCALE * (1 + (reduceMotion ? 0 : 0.016 * Math.sin(tMol * 0.8))));
+      if (!reduceMotion){
+        hero.group.rotation.y += dt * 0.17;
+        hero.group.rotation.x = 0.12 + 0.16 * Math.sin(tMol * 0.10);
+      }
+    }
+
+    /* act-1 selection ripple */
+    const sinceSel = clock - SELECT.t;
+    if (SELECT.idx >= 0 && sinceSel > 0 && sinceSel < 0.9 && p < 0.235){
+      rippleMat.opacity = 0.6 * (1 - sinceSel / 0.9);
+      ripple.scale.setScalar(5 + 30 * (1 - Math.pow(1 - sinceSel / 0.9, 2.5)));
+      ripple.position.copy(feat[SELECT.idx].live);
+    } else rippleMat.opacity = 0;
+
+    /* act-4/5 charged-surface life: ignition sweep, energy wave, time */
+    const PU = panelFaceMat.uniforms;
+    PU.uTime.value = tMol;
+    PU.uIgnite.value = easeIO(clampR(0.675, 0.77, p));
+    PU.uWave.value = clampR(0.74, 0.80, p) * (1 - 0.4 * clampR(0.95, 1.0, p));
+
+    /* lens + DoF + bloom */
+    const lensFade = 1 - clampR(0.195, 0.225, p);
+    projectPoint(focusTarget, _scr);
+    /* portrait: clamp the lens center so the full disc (plus bevel) stays inside
+       the narrow frame — the zoom crop samples the SAME clamped point, so the
+       glass keeps showing exactly what sits behind it */
+    let lcx = _scr.x, lcy = _scr.y;
+    if (VIEW.portrait){
+      const rPx = VIEW.lensR * innerHeight * 1.14;
+      lcx = Math.min(innerWidth - rPx, Math.max(rPx, lcx));
+      lcy = Math.min(innerHeight - rPx, Math.max(rPx, lcy));
+    }
+    lensFx.uniforms.get('uCenter').value.set(lcx / innerWidth, 1 - lcy / innerHeight);
+    lensFx.uniforms.get('uStrength').value = lensStrength * lensFade * (_scr.behind ? 0 : 1);
+    lensFx.uniforms.get('uTime').value = tMol;
+    lensFx.uniforms.get('uDots').value = focusGlow * lensFade;
+    /* the magnifier's zoom pass: render a LENS_MAG× crop around the lens center
+       into the dedicated target (sharp — no DoF, no bloom) */
+    if (lensStrength * lensFade > 0.004 && !_scr.behind && p < 0.235){
+      camera.setViewOffset(innerWidth, innerHeight,
+        lcx - innerWidth / (2 * LENS_MAG), lcy - innerHeight / (2 * LENS_MAG),
+        innerWidth / LENS_MAG, innerHeight / LENS_MAG);
+      renderer.setRenderTarget(lensRT);
+      renderer.render(scene, camera);
+      camera.clearViewOffset();
+      renderer.setRenderTarget(null);
+    }
+    if (/[?&]debug=4/.test(location.search)){
+      lensFx.uniforms.get('uCenter').value.set(0.5, 0.5);
+      lensFx.uniforms.get('uStrength').value = 1;
+    }
+    // acts 4-5 focus the hero surface itself so the climax renders pin-sharp
+    dofFx.target = (p > 0.22 && p < 0.45) ? feat[cloudIdx].live : (p > 0.62 ? PANEL.center : focusTarget);
+    dofFx.bokehScale = lerp(0.8, 3.6, Math.max(focusGlow * lensFade, easeIO(clampR(0.24, 0.32, p)) * (1 - clampR(0.40, 0.45, p))));
+    bloomFx.intensity = 0.55 + 0.50 * clampR(0.80, 0.95, p) + 0.28 * redBoost * cloudVis;
+
+    composer.render(dt);
+    if (firstFrame){
+      firstFrame = false;
+      ui.canvas.classList.add('ready');
+    }
+    if (window.__dbg && ++__dbgFrames === 40){
+      window.__dbg('p=' + p.toFixed(3) + ' cloudVis=' + cloudVis.toFixed(2) +
+        ' cam=' + camera.position.toArray().map(n => n.toFixed(1)).join(',') +
+        ' mol[' + cloudIdx + ']=' + hero.atoms.length + 'a/' + hero.bonds.length + 'b asm=' + hero.assembled.toFixed(2) +
+        ' reduce=' + reduceMotion + ' fine=' + finePointer +
+        ' mode=' + FOCUS.mode + ' idx=' + FOCUS.idx + ' lens=' + lensStrength.toFixed(2) +
+        ' uS=' + lensFx.uniforms.get('uStrength').value.toFixed(2) +
+        ' uC=' + lensFx.uniforms.get('uCenter').value.toArray().map(n => n.toFixed(2)).join(','));
+    }
+  }
+  let __dbgFrames = 0;
+
+  function resize(){
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    computeView();                   // re-derive portrait reframing (field, lens, dollies)
+    refreshField();
+    refreshCamAnchors();
+    renderer.setPixelRatio(Math.min(devicePixelRatio, MAX_DPR));
+    composer.setSize(innerWidth, innerHeight);
+    sizeLensRT();
+    lensFx.uniforms.get('uLensAspect').value = innerWidth / innerHeight;
+    lensFx.uniforms.get('uRadius').value = VIEW.lensR;
+    applyFrame(S.p);                 // re-anchor DOM-projected layers (tracer, chart)
+    if (reduceMotion) renderStatic();
+  }
+  addEventListener('resize', resize);
+
+  /* reduced-motion + pinned QA: settle the simulation into one composed frame */
+  function renderStatic(){
+    const pp = pinnedP !== null ? pinnedP : 0;
+    applyFrame(pp);
+    FOCUS.lastInput = -1e9;          // pinned QA: auto tour engages immediately (no-op under reduced motion)
+    for (let i = 0; i < 100; i++) update(1 / 60, 16.7 * i);
+  }
+
+  /* scroll cancels the auto tour and hands control back (re-armed by the idle timer) */
+  function notifyScroll(){
+    FOCUS.lastInput = performance.now();
+    if (finePointer && FOCUS.mode === 'AUTO_TOUR') FOCUS.mode = 'DRIFT';
+  }
+
+  return { update, renderStatic, notifyScroll };
+}
+
+/* ============================== boot ============================== */
+
+const ric = window.requestIdleCallback
+  ? (fn => requestIdleCallback(fn, { timeout: 800 }))   // timeout: guarantee init even on busy main threads
+  : (fn => setTimeout(fn, 250));
+const dbg = window.__dbg || (() => {});
+
+function boot(){
+  dbg('boot() entered');
+  try {
+    GL = initGL();
+    dbg('initGL ok');
+  } catch (err) {
+    console.error('WebGL init failed — keeping static poster.', err);
+    // captions still follow native scroll over the poster
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.create({
+      trigger: '#spacer', start: 'top top', end: 'bottom bottom',
+      onUpdate: self => applyFrame(self.progress),
+    });
+    return;
+  }
+
+  if (reduceMotion){
+    GL.renderStatic();
+    ui.canvas.classList.add('ready');
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.ticker.lagSmoothing(0);
+
+  let lenis = null;
+  if (pinnedP === null){
+    lenis = new Lenis({ duration: 1.25, smoothWheel: true });
+    lenis.on('scroll', e => {
+      ScrollTrigger.update();
+      if (Math.abs(e.velocity) > 0.05) GL.notifyScroll();
+    });
+    ScrollTrigger.create({
+      trigger: '#spacer', start: 'top top', end: 'bottom bottom',
+      onUpdate: self => applyFrame(self.progress),
+    });
+  } else {
+    // pinned QA mode: paint a settled, fully composed frame immediately
+    applyFrame(pinnedP);
+    ui.canvas.style.transition = 'none';
+    GL.renderStatic();
+  }
+
+  // one loop: Lenis + simulation + composer all inside the GSAP ticker
+  gsap.ticker.add(t => {
+    if (lenis) lenis.raf(t * 1000);
+    const now = performance.now();
+    const dt = Math.min(0.05, gsap.ticker.deltaRatio(60) / 60);
+    GL.update(dt, now);
+  });
+}
+
+ric(boot);
+</script>
+
+<!-- Isolated interactive layer (GSAP). Self-contained: guarded on window.gsap and
+     reduced-motion, attaches only to chrome/CTA elements, and never touches the
+     WebGL scroll engine above. -->
+<script>
+(function(){
+  if (!window.gsap || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // magnetic pull on the finale CTA + header Shop button
+  document.querySelectorAll('.cta-btn, #site-header .shop').forEach(function(btn){
+    btn.addEventListener('pointermove', function(e){
+      var r = btn.getBoundingClientRect();
+      gsap.to(btn, { x:(e.clientX-r.left-r.width/2)*0.3, y:(e.clientY-r.top-r.height/2)*0.45, duration:0.3, ease:'power3.out' });
+    });
+    btn.addEventListener('pointerleave', function(){
+      gsap.to(btn, { x:0, y:0, duration:0.55, ease:'elastic.out(1,0.4)' });
+    });
+  });
+  // soft lift on nav links
+  document.querySelectorAll('#site-nav a:not(.shop)').forEach(function(a){
+    a.addEventListener('pointerenter', function(){ gsap.to(a, { y:-2, duration:0.25, ease:'power2.out' }); });
+    a.addEventListener('pointerleave', function(){ gsap.to(a, { y:0, duration:0.35, ease:'power2.out' }); });
+  });
+})();
+</script>
+</body>
+</html>
