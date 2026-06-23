@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>C-POLAR — Iridescent Blob (WebGL demo)</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;background:#05070d;color:#eaf2fb;font-family:'Space Mono',ui-monospace,monospace;overflow:hidden;}
+  #c{position:fixed;inset:0;display:block;}
+  /* ambient mood */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:radial-gradient(60% 50% at 50% 45%,rgba(52,225,255,.08),transparent 60%),
+               radial-gradient(50% 40% at 80% 85%,rgba(155,140,255,.07),transparent 60%);}
+  /* film grain */
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
+  .hud{position:fixed;z-index:5;}
+  .top{top:22px;left:24px;}
+  .top .k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#34e1ff;}
+  .top .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin-top:6px;color:#fff;}
+  .top .s{font-size:11px;color:#6e7a90;margin-top:6px;letter-spacing:.06em;}
+  .panel{bottom:24px;left:24px;display:flex;flex-direction:column;gap:14px;background:rgba(9,13,22,.6);
+    border:1px solid rgba(130,160,210,.16);border-radius:14px;padding:18px 20px;backdrop-filter:blur(10px);width:230px;}
+  .row label{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#9aa6bd;margin-bottom:7px;}
+  .row label b{color:#34e1ff;}
+  input[type=range]{width:100%;-webkit-appearance:none;height:3px;border-radius:3px;background:rgba(130,160,210,.25);outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+    background:linear-gradient(180deg,#7eecff,#34e1ff);cursor:pointer;box-shadow:0 0 10px rgba(52,225,255,.6);}
+  .hint{bottom:30px;right:26px;font-size:11px;color:#5e6883;letter-spacing:.12em;text-align:right;}
+  .fallback{position:fixed;inset:0;display:none;place-items:center;z-index:3;color:#9aa6bd;font-size:14px;text-align:center;padding:40px;}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div class="hud top">
+  <div class="k">C-POLAR · concept</div>
+  <div class="t">Iridescent charge blob</div>
+  <div class="s">Move your cursor — the surface is pulled toward it, like a positive charge.</div>
+</div>
+
+<div class="hud panel" id="panel">
+  <div class="row"><label>Viscosity / noise <b id="vNoise">0.35</b></label><input id="sNoise" type="range" min="0.1" max="0.7" step="0.01" value="0.35"></div>
+  <div class="row"><label>Iridescence <b id="vIrid">0.65</b></label><input id="sIrid" type="range" min="0" max="1" step="0.01" value="0.65"></div>
+  <div class="row"><label>Cursor pull <b id="vPull">0.30</b></label><input id="sPull" type="range" min="0" max="0.7" step="0.01" value="0.30"></div>
+</div>
+
+<div class="hint">DRAG TO ORBIT · SCROLL TO ZOOM</div>
+<div class="fallback" id="fallback">Your browser can't run this WebGL demo — but the concept is a glossy, breathing iridescent blob.</div>
+
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+
+const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canvas = document.getElementById('c');
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
+catch (e) { document.getElementById('fallback').style.display = 'grid'; throw e; }
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
+renderer.setSize(innerWidth, innerHeight);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(0, 0, 4.2);
+
+// ---- shader uniforms ----
+const uniforms = {
+  uTime:   { value: 0 },
+  uFreq:   { value: 1.5 },
+  uAmp:    { value: 0.35 },     // viscosity/noise
+  uIrid:   { value: 0.65 },     // iridescence strength
+  uPull:   { value: 0.30 },     // cursor pull
+  uMouse:  { value: new THREE.Vector3(0, 0, 1) },
+  uBase:   { value: new THREE.Color('#34e1ff') },
+  uBase2:  { value: new THREE.Color('#9b8cff') },
+};
+
+// Ashima/Gustavson simplex noise (snoise) — standard MIT GLSL utility
+const NOISE = `
+vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x,289.0);}
+vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}
+float snoise(vec3 v){
+  const vec2 C=vec2(1.0/6.0,1.0/3.0); const vec4 D=vec4(0.0,0.5,1.0,2.0);
+  vec3 i=floor(v+dot(v,C.yyy)); vec3 x0=v-i+dot(i,C.xxx);
+  vec3 g=step(x0.yzx,x0.xyz); vec3 l=1.0-g; vec3 i1=min(g.xyz,l.zxy); vec3 i2=max(g.xyz,l.zxy);
+  vec3 x1=x0-i1+1.0*C.xxx; vec3 x2=x0-i2+2.0*C.xxx; vec3 x3=x0-1.0+3.0*C.xxx;
+  i=mod(i,289.0);
+  vec4 p=permute(permute(permute(i.z+vec4(0.0,i1.z,i2.z,1.0))+i.y+vec4(0.0,i1.y,i2.y,1.0))+i.x+vec4(0.0,i1.x,i2.x,1.0));
+  float n_=1.0/7.0; vec3 ns=n_*D.wyz-D.xzx;
+  vec4 j=p-49.0*floor(p*ns.z*ns.z);
+  vec4 x_=floor(j*ns.z); vec4 y_=floor(j-7.0*x_);
+  vec4 x=x_*ns.x+ns.yyyy; vec4 y=y_*ns.x+ns.yyyy; vec4 h=1.0-abs(x)-abs(y);
+  vec4 b0=vec4(x.xy,y.xy); vec4 b1=vec4(x.zw,y.zw);
+  vec4 s0=floor(b0)*2.0+1.0; vec4 s1=floor(b1)*2.0+1.0; vec4 sh=-step(h,vec4(0.0));
+  vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy; vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+  vec3 p0=vec3(a0.xy,h.x); vec3 p1=vec3(a0.zw,h.y); vec3 p2=vec3(a1.xy,h.z); vec3 p3=vec3(a1.zw,h.w);
+  vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));
+  p0*=norm.x; p1*=norm.y; p2*=norm.z; p3*=norm.w;
+  vec4 m=max(0.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.0); m=m*m;
+  return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
+}`;
+
+const mat = new THREE.ShaderMaterial({
+  uniforms, transparent: true,
+  vertexShader: NOISE + `
+    uniform float uTime,uFreq,uAmp,uPull; uniform vec3 uMouse;
+    varying vec3 vN; varying vec3 vView; varying float vF;
+    float disp(vec3 p){
+      float n = snoise(p*uFreq + vec3(0.0,0.0,uTime*0.25));
+      n += 0.5*snoise(p*uFreq*2.1 + vec3(uTime*0.3));
+      float breathe = 0.6 + 0.4*sin(uTime*0.8);
+      float d = n*uAmp*(0.65+0.35*breathe);
+      d += smoothstep(0.45,1.0,dot(normalize(p),uMouse))*uPull;  // cursor pull
+      return d;
+    }
+    void main(){
+      vec3 p = position;
+      float d = disp(p);
+      vec3 displaced = p + normal*d;
+      float e = 0.08;
+      vec3 grad = vec3(
+        disp(p+vec3(e,0.0,0.0))-disp(p-vec3(e,0.0,0.0)),
+        disp(p+vec3(0.0,e,0.0))-disp(p-vec3(0.0,e,0.0)),
+        disp(p+vec3(0.0,0.0,e))-disp(p-vec3(0.0,0.0,e))) / (2.0*e);
+      vec3 N = normalize(normal - (grad - dot(grad,normal)*normal));
+      vN = normalize(normalMatrix*N);
+      vec4 wp = modelMatrix*vec4(displaced,1.0);
+      vView = normalize(cameraPosition - wp.xyz);
+      vF = clamp(d*0.5+0.5,0.0,1.0);
+      gl_Position = projectionMatrix*viewMatrix*wp;
+    }`,
+  fragmentShader: `
+    uniform float uIrid; uniform vec3 uBase,uBase2;
+    varying vec3 vN; varying vec3 vView; varying float vF;
+    vec3 pal(float t){ // iridescent cosine palette (teal -> violet -> rose)
+      return vec3(0.5)+vec3(0.5)*cos(6.2831*(vec3(1.0)*t+vec3(0.0,0.33,0.55)));
+    }
+    void main(){
+      vec3 N=normalize(vN); vec3 V=normalize(vView);
+      float fres=pow(1.0-max(dot(N,V),0.0),2.4);
+      vec3 irid=pal(fres*1.2+vF*0.4);
+      vec3 base=mix(uBase,uBase2,0.4+0.6*vF);
+      vec3 col=mix(base, irid, uIrid*(0.25+0.75*fres));
+      vec3 L=normalize(vec3(0.5,0.85,0.6));
+      vec3 H=normalize(L+V);
+      float spec=pow(max(dot(N,H),0.0),70.0);
+      col += spec*vec3(1.0);
+      col += fres*uBase*0.55;              // rim glow
+      float a=0.82+0.18*fres;
+      gl_FragColor=vec4(col,a);
+    }`,
+});
+
+const geo = new THREE.IcosahedronGeometry(1.15, REDUCE ? 24 : 48);
+const blob = new THREE.Mesh(geo, mat);
+scene.add(blob);
+
+// faint inner core for depth
+const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.9, 8),
+  new THREE.MeshBasicMaterial({ color: 0x0a1830, transparent: true, opacity: 0.5 }));
+scene.add(core);
+
+// ---- interaction: orbit-lite + zoom + cursor pull ----
+let tx = 0, ty = 0, rotX = 0, rotY = 0, dist = 4.2, dragging = false, lastX, lastY;
+addEventListener('pointermove', e => {
+  tx = (e.clientX / innerWidth - 0.5); ty = (e.clientY / innerHeight - 0.5);
+  // cursor direction in view space → drives the surface pull
+  uniforms.uMouse.value.set(tx * 2.0, -ty * 2.0, 1.0).normalize();
+  if (dragging) { rotY += (e.clientX - lastX) * 0.005; rotX += (e.clientY - lastY) * 0.005; lastX = e.clientX; lastY = e.clientY; }
+}, { passive: true });
+addEventListener('pointerdown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; });
+addEventListener('pointerup', () => dragging = false);
+addEventListener('wheel', e => { dist = Math.min(7, Math.max(2.6, dist + e.deltaY * 0.002)); }, { passive: true });
+
+// sliders
+const bind = (id, vid, key, fmt) => {
+  const s = document.getElementById(id), v = document.getElementById(vid);
+  s.addEventListener('input', () => { uniforms[key].value = +s.value; v.textContent = (+s.value).toFixed(2); });
+};
+bind('sNoise', 'vNoise', 'uAmp'); bind('sIrid', 'vIrid', 'uIrid'); bind('sPull', 'vPull', 'uPull');
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+}, { passive: true });
+
+const clock = new THREE.Clock();
+function frame() {
+  uniforms.uTime.value = clock.getElapsedTime();
+  rotY += (REDUCE ? 0 : 0.0016) + (tx * 0.04 - rotY * 0.0) * 0;   // gentle auto-spin
+  blob.rotation.y = core.rotation.y = rotY + tx * 0.4;
+  blob.rotation.x = core.rotation.x = rotX - ty * 0.3;
+  camera.position.z += (dist - camera.position.z) * 0.08;
+  renderer.render(scene, camera);
+  if (!REDUCE) requestAnimationFrame(frame);
+}
+frame();
+if (REDUCE) renderer.render(scene, camera);
+</script>
+</body>
+</html>
