@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>C-POLAR — Capture & Destroy (scroll demo)</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:#05070d;color:#eaf2fb;font-family:'Space Mono',ui-monospace,monospace;}
+  #c{position:fixed;inset:0;display:block;z-index:1;}
+  #spacer{height:640vh;position:relative;pointer-events:none;}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;
+    background:radial-gradient(60% 50% at 50% 40%,rgba(52,225,255,.06),transparent 60%),
+               radial-gradient(50% 45% at 82% 88%,rgba(255,85,102,.05),transparent 60%);}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
+  .hud{position:fixed;z-index:5;pointer-events:none;}
+  .top{top:24px;left:26px;}
+  .top .k{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#34e1ff;}
+  .cap{position:fixed;left:0;right:0;bottom:12%;z-index:5;text-align:center;pointer-events:none;}
+  .cap h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(26px,4.6vw,56px);
+    letter-spacing:-.02em;line-height:1.05;opacity:0;transition:opacity .5s ease;text-shadow:0 2px 30px rgba(0,0,0,.6);}
+  .cap h1.on{opacity:1;}
+  .cue{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:5;font-size:11px;letter-spacing:.3em;color:#5e6883;}
+  .panel{position:fixed;bottom:22px;right:22px;z-index:6;display:flex;flex-direction:column;gap:12px;
+    background:rgba(9,13,22,.6);border:1px solid rgba(130,160,210,.16);border-radius:14px;padding:16px 18px;
+    backdrop-filter:blur(10px);width:210px;}
+  .panel .row label{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#9aa6bd;margin-bottom:6px;}
+  .panel .row label b{color:#34e1ff;}
+  input[type=range]{width:100%;-webkit-appearance:none;height:3px;border-radius:3px;background:rgba(130,160,210,.25);}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;
+    background:linear-gradient(180deg,#7eecff,#34e1ff);cursor:pointer;box-shadow:0 0 8px rgba(52,225,255,.6);}
+  .fallback{position:fixed;inset:0;display:none;place-items:center;z-index:4;color:#9aa6bd;font-size:14px;text-align:center;padding:40px;}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="spacer"></div>
+
+<div class="hud top"><div class="k">C-POLAR · capture &amp; destroy · concept</div></div>
+<div class="cap"><h1 id="cap"></h1></div>
+<div class="cue">SCROLL ↓</div>
+<div class="panel">
+  <div class="row"><label>Viscosity <b id="vN">0.15</b></label><input id="sN" type="range" min="0.06" max="0.45" step="0.01" value="0.15"></div>
+  <div class="row"><label>Iridescence <b id="vI">0.55</b></label><input id="sI" type="range" min="0" max="1" step="0.01" value="0.55"></div>
+  <div class="row"><label>Cursor pull <b id="vP">0.22</b></label><input id="sP" type="range" min="0" max="0.6" step="0.01" value="0.22"></div>
+</div>
+<div class="fallback" id="fallback">This browser can't run the WebGL demo. Concept: an iridescent charge blob, pollutants falling onto a charged filter and destroyed on contact.</div>
+
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+
+const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canvas = document.getElementById('c');
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
+catch (e) { document.getElementById('fallback').style.display = 'grid'; throw e; }
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
+renderer.setSize(innerWidth, innerHeight);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(46, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(0, 0, 6.4);
+scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(4, 8, 10); scene.add(key);
+
+/* on-brand env reflections */
+(function(){
+  const es = new THREE.Scene(); es.background = new THREE.Color(0x05070d);
+  const g = (h,x,y,z,s)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(s,s),new THREE.MeshBasicMaterial({color:h}));m.position.set(x,y,z);m.lookAt(0,0,0);es.add(m);};
+  g(0x34e1ff,-7,5,7,9); g(0xff5566,8,-4,5,5); g(0x1a2740,2,9,-7,12);
+  const p=new THREE.PMREMGenerator(renderer); scene.environment=p.fromScene(es,0.04).texture; p.dispose();
+})();
+
+/* ---------- shared iridescent shader (blob + pathogens) ---------- */
+const NOISE = `
+vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x,289.0);}
+vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}
+float snoise(vec3 v){const vec2 C=vec2(1.0/6.0,1.0/3.0);const vec4 D=vec4(0.0,0.5,1.0,2.0);
+ vec3 i=floor(v+dot(v,C.yyy));vec3 x0=v-i+dot(i,C.xxx);vec3 g=step(x0.yzx,x0.xyz);vec3 l=1.0-g;
+ vec3 i1=min(g.xyz,l.zxy);vec3 i2=max(g.xyz,l.zxy);vec3 x1=x0-i1+C.xxx;vec3 x2=x0-i2+2.0*C.xxx;vec3 x3=x0-1.0+3.0*C.xxx;
+ i=mod(i,289.0);vec4 p=permute(permute(permute(i.z+vec4(0.0,i1.z,i2.z,1.0))+i.y+vec4(0.0,i1.y,i2.y,1.0))+i.x+vec4(0.0,i1.x,i2.x,1.0));
+ float n_=1.0/7.0;vec3 ns=n_*D.wyz-D.xzx;vec4 j=p-49.0*floor(p*ns.z*ns.z);vec4 x_=floor(j*ns.z);vec4 y_=floor(j-7.0*x_);
+ vec4 x=x_*ns.x+ns.yyyy;vec4 y=y_*ns.x+ns.yyyy;vec4 h=1.0-abs(x)-abs(y);vec4 b0=vec4(x.xy,y.xy);vec4 b1=vec4(x.zw,y.zw);
+ vec4 s0=floor(b0)*2.0+1.0;vec4 s1=floor(b1)*2.0+1.0;vec4 sh=-step(h,vec4(0.0));
+ vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+ vec3 p0=vec3(a0.xy,h.x);vec3 p1=vec3(a0.zw,h.y);vec3 p2=vec3(a1.xy,h.z);vec3 p3=vec3(a1.zw,h.w);
+ vec4 nm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));p0*=nm.x;p1*=nm.y;p2*=nm.z;p3*=nm.w;
+ vec4 m=max(0.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.0);m=m*m;
+ return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));}`;
+
+const VERT = NOISE + `
+ uniform float uTime,uFreq,uAmp,uPull; uniform vec3 uMouse;
+ varying vec3 vN; varying vec3 vView; varying float vF;
+ float disp(vec3 p){ float n=snoise(p*uFreq+vec3(0.0,0.0,uTime*0.25)); n+=0.5*snoise(p*uFreq*2.1+vec3(uTime*0.3));
+   float br=0.6+0.4*sin(uTime*0.8); float d=n*uAmp*(0.65+0.35*br);
+   d+=smoothstep(0.45,1.0,dot(normalize(p),uMouse))*uPull; return d; }
+ void main(){ vec3 p=position; float d=disp(p); vec3 dp=p+normal*d; float e=0.08;
+   vec3 gr=vec3(disp(p+vec3(e,0.,0.))-disp(p-vec3(e,0.,0.)),disp(p+vec3(0.,e,0.))-disp(p-vec3(0.,e,0.)),disp(p+vec3(0.,0.,e))-disp(p-vec3(0.,0.,e)))/(2.0*e);
+   vec3 N=normalize(normal-(gr-dot(gr,normal)*normal)); vN=normalize(normalMatrix*N);
+   vec4 wp=modelMatrix*vec4(dp,1.0); vView=normalize(cameraPosition-wp.xyz); vF=clamp(d*0.5+0.5,0.0,1.0);
+   gl_Position=projectionMatrix*viewMatrix*wp; }`;
+
+const FRAG = `
+ uniform float uIrid; uniform vec3 uBase,uBase2;
+ varying vec3 vN; varying vec3 vView; varying float vF;
+ // high-tech iridescence: tight cool range (deep blue -> cyan -> white -> violet), no candy rainbow
+ vec3 pal(float t){ return vec3(0.55,0.6,0.72)+vec3(0.45,0.42,0.4)*cos(6.2831*(vec3(0.85,0.95,1.1)*t+vec3(0.62,0.7,0.86))); }
+ void main(){ vec3 N=normalize(vN),V=normalize(vView); float fr=pow(1.0-max(dot(N,V),0.0),2.4);
+   vec3 ir=pal(fr*1.2+vF*0.4); vec3 base=mix(uBase,uBase2,0.4+0.6*vF);
+   vec3 col=mix(base,ir,uIrid*(0.25+0.75*fr));
+   vec3 L=normalize(vec3(0.5,0.85,0.6)),H=normalize(L+V); col+=pow(max(dot(N,H),0.0),70.0)*vec3(1.0);
+   col+=fr*uBase*0.55; gl_FragColor=vec4(col,0.82+0.18*fr); }`;
+
+function iridMat(base, base2, freq, amp, pull){
+  return new THREE.ShaderMaterial({ transparent:true, vertexShader:VERT, fragmentShader:FRAG,
+    uniforms:{ uTime:{value:0}, uFreq:{value:freq}, uAmp:{value:amp}, uPull:{value:pull},
+      uMouse:{value:new THREE.Vector3(0,0,1)}, uIrid:{value:0.7},
+      uBase:{value:new THREE.Color(base)}, uBase2:{value:new THREE.Color(base2)} } });
+}
+
+/* ---------- background blob (cyan, breathing, mouse-reactive) ---------- */
+const blobMat = iridMat('#2bd4ff', '#8aa0ff', 1.2, 0.15, 0.22);   // rounder (low amp, broad noise), high-tech blue/indigo
+blobMat.uniforms.uIrid.value = 0.55;
+const blob = new THREE.Mesh(new THREE.IcosahedronGeometry(1.5, REDUCE ? 32 : 64), blobMat);
+blob.position.set(0, 0.2, -2.4);
+scene.add(blob);
+
+/* ---------- starfield ---------- */
+const starN = 700, sPos = new Float32Array(starN*3);
+for (let i=0;i<starN;i++){ sPos[i*3]=(Math.random()-0.5)*36; sPos[i*3+1]=(Math.random()-0.5)*24; sPos[i*3+2]=(Math.random()-0.5)*20-4; }
+const starGeo = new THREE.BufferGeometry(); starGeo.setAttribute('position', new THREE.BufferAttribute(sPos,3));
+const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color:0x9fb4d6, size:0.04, transparent:true, opacity:0.55, depthWrite:false }));
+scene.add(stars);
+
+/* ---------- the charged filter (a tilted plane with +/- marks) ---------- */
+const filterMat = new THREE.ShaderMaterial({ transparent:true,
+  uniforms:{ uTime:{value:0}, uFlash:{value:0} },
+  vertexShader:`varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);} `,
+  fragmentShader:`varying vec2 vUv; uniform float uTime,uFlash;
+   void main(){ vec2 g=vUv*vec2(18.0,7.0); vec2 cl=fract(g)-0.5; float idx=mod(floor(g.x)+floor(g.y),2.0);
+     float ax=smoothstep(0.18,0.11,abs(cl.x))*smoothstep(0.05,0.02,abs(cl.y));
+     float ay=smoothstep(0.18,0.11,abs(cl.y))*smoothstep(0.05,0.02,abs(cl.x));
+     float plus=max(ax,ay), minus=ax; float mark=mix(plus,minus,idx);
+     vec3 col=mix(vec3(0.2,0.88,1.0),vec3(1.0,0.33,0.4),idx);
+     float flick=0.55+0.45*sin(uTime*3.0+floor(g.x)*1.3+floor(g.y));
+     vec3 c=col*mark*flick;
+     c+=uFlash*exp(-pow((vUv.y-0.5)*3.0,2.0))*vec3(0.6,0.95,1.0);
+     float edge=smoothstep(0.5,0.46,abs(vUv.x-0.5))*smoothstep(0.5,0.46,abs(vUv.y-0.5));
+     c+=(1.0-edge)*vec3(0.1,0.45,0.7)*0.35;
+     gl_FragColor=vec4(c, mark*0.85+uFlash*0.4+(1.0-edge)*0.15); }`
+});
+const filter = new THREE.Mesh(new THREE.PlaneGeometry(7.2, 2.6, 1, 1), filterMat);
+filter.position.set(0, -3.0, -0.5);
+filter.rotation.x = -0.5;
+scene.add(filter);
+
+/* ---------- 3 distinct pathogens (each a different shape) ---------- */
+const pGeos = [
+  new THREE.IcosahedronGeometry(0.42, 1),       // angular / spiky
+  new THREE.TorusKnotGeometry(0.30, 0.10, 90, 14), // knotted
+  new THREE.DodecahedronGeometry(0.46, 0),      // faceted lump
+];
+const pX = [-1.7, 0.1, 1.8], pYtop = 3.0;
+const pathogens = pGeos.map((geo, i) => {
+  const m = iridMat('#b15cff', '#ff5db0', 2.4, 0.12, 0.0);   // electric violet→magenta (high-tech threat)
+  m.uniforms.uIrid.value = 0.5;
+  const mesh = new THREE.Mesh(geo, m);
+  mesh.position.set(pX[i], pYtop, 0);
+  mesh.scale.setScalar(0.001);
+  mesh.visible = false;
+  scene.add(mesh);
+  // shockwave ring (shown on destroy)
+  const ringMat = new THREE.MeshBasicMaterial({ color:0x9fe8ff, transparent:true, opacity:0, blending:THREE.AdditiveBlending, depthWrite:false, side:THREE.DoubleSide });
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0.2, 0.28, 48), ringMat);
+  ring.rotation.x = -0.5; ring.visible = false; scene.add(ring);
+  // more dramatic, well-separated timing: each pathogen hovers, then plunges, then strikes
+  return { mesh, m, ring, ringMat, x:pX[i], spin:new THREE.Vector3(Math.random(),Math.random(),Math.random()).multiplyScalar(0.02),
+           appear:0.24+i*0.05, fall:0.40+i*0.12, hover:0.52+i*0.12, hit:0.60+i*0.12, destroyed:false, burstT:0 };
+});
+
+/* ---------- interaction ---------- */
+let tx=0, ty=0;
+addEventListener('pointermove', e=>{ tx=e.clientX/innerWidth-0.5; ty=e.clientY/innerHeight-0.5;
+  blobMat.uniforms.uMouse.value.set(tx*2.0,-ty*2.0,1.0).normalize(); }, {passive:true});
+const bind=(id,vid,fn)=>{const s=document.getElementById(id),v=document.getElementById(vid);
+  s.addEventListener('input',()=>{fn(+s.value);v.textContent=(+s.value).toFixed(2);});};
+bind('sN','vN',x=>blobMat.uniforms.uAmp.value=x);
+bind('sI','vI',x=>{blobMat.uniforms.uIrid.value=x;});
+bind('sP','vP',x=>blobMat.uniforms.uPull.value=x);
+
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);},{passive:true});
+
+/* ---------- scroll narrative ---------- */
+const capEl = document.getElementById('cap');
+const CAPS = [
+  [0.00, 'An iridescent charge field.'],
+  [0.22, 'Pollutants drift in — each one different.'],
+  [0.44, 'They fall toward the charged filter.'],
+  [0.66, 'Captured & destroyed on contact.'],
+];
+let curCap = -1;
+function setCap(p){
+  let idx=0; for(let i=0;i<CAPS.length;i++) if(p>=CAPS[i][0]) idx=i;
+  if(idx!==curCap){ curCap=idx; capEl.classList.remove('on');
+    setTimeout(()=>{ capEl.textContent=CAPS[idx][1]; capEl.classList.add('on'); }, 180); }
+}
+const ease=t=>t<0?0:t>1?1:1-Math.pow(1-t,3);
+const clamp01=t=>t<0?0:t>1?1:t;
+let pTarget=0, pSmooth=0;
+function readScroll(){ const sp=document.getElementById('spacer'); const max=sp.offsetHeight-innerHeight;
+  pTarget=max>0?clamp01((window.scrollY||window.pageYOffset)/max):0; }
+addEventListener('scroll', readScroll, {passive:true}); readScroll();
+
+const clock=new THREE.Clock();
+function tick(){
+  const t=clock.getElapsedTime();
+  pSmooth += (pTarget-pSmooth)*0.09;        // buttery scroll easing
+  const p=pSmooth;
+  setCap(p);
+
+  blobMat.uniforms.uTime.value=t;
+  filterMat.uniforms.uTime.value=t;
+  // blob: gentle parallax + scroll stretch
+  blob.rotation.y += 0.0016; blob.rotation.x = -ty*0.2;
+  blob.position.x += (tx*0.5 - blob.position.x)*0.05;
+  blob.scale.y = 1.0 + 0.12*Math.sin(p*3.14);   // slow scroll stretch
+  stars.rotation.y = t*0.005;
+
+  // filter: rises into view + flash decays
+  filter.position.y = -3.0 + 0.4*ease(clamp01((p-0.45)/0.2));
+  filterMat.uniforms.uFlash.value *= 0.90;
+
+  // pathogens lifecycle
+  for(const o of pathogens){
+    const ap = ease(clamp01((p-o.appear)/0.10));
+    o.mesh.visible = ap>0.001 && !(o.destroyed && o.mesh.scale.x<0.01);
+    if(!o.destroyed){
+      o.mesh.scale.setScalar(0.001+ap*0.999);
+      o.mesh.rotation.x += o.spin.x; o.mesh.rotation.y += o.spin.y;
+      o.m.uniforms.uTime.value = t;
+      const hoverY = -1.9, strikeY = -2.55;
+      let y;
+      if(p < o.hover){                 // APPROACH — decelerate into a hover (anticipation)
+        const a = ease(clamp01((p-o.fall)/(o.hover-o.fall)));
+        y = pYtop + (hoverY-pYtop)*a;
+        o.m.uniforms.uIrid.value = 0.5;
+      } else if(p < o.hit){            // PAUSE — hover & charge up, tiny bob + flicker (the drama)
+        const h = clamp01((p-o.hover)/(o.hit-o.hover));
+        y = hoverY + Math.sin(t*6.0)*0.045*(1.0-h);
+        o.m.uniforms.uIrid.value = 0.5 + 0.5*h*(0.5+0.5*Math.sin(t*16.0));
+      } else {                         // STRIKE — quick plunge into the filter, then destroy
+        const pl = clamp01((p-o.hit)/0.05);
+        y = hoverY + (strikeY-hoverY)*ease(pl);
+        if(pl>=1.0){ o.destroyed=true; o.burstT=t; filterMat.uniforms.uFlash.value=1.5;
+          o.ring.position.set(o.mesh.position.x, -2.55, 0.15); o.ring.visible=true; }
+      }
+      o.mesh.position.y = y;
+      o.mesh.position.x = o.x + Math.sin(t*1.3+o.x)*0.05;
+    } else {
+      // shrink-pop the pathogen
+      o.mesh.scale.multiplyScalar(0.78);
+      o.mesh.position.y -= 0.01;
+      // shockwave ring expand + fade
+      const bt = t - o.burstT;
+      if(bt<1.0){ const k=bt/1.0; o.ring.scale.setScalar(0.4+k*7.0); o.ringMat.opacity=(1.0-k)*1.0; }
+      else o.ring.visible=false;
+      // allow re-play when scrolling back up above its appear point
+      if(p < o.appear-0.02){ o.destroyed=false; o.mesh.scale.setScalar(0.001); o.ring.visible=false; }
+    }
+  }
+
+  // camera drifts down a touch through the story
+  camera.position.y += ((-p*0.8) - camera.position.y)*0.05;
+  camera.lookAt(0, camera.position.y*0.4, 0);
+
+  renderer.render(scene,camera);
+  if(!REDUCE) requestAnimationFrame(tick);
+}
+tick();
+if(REDUCE) renderer.render(scene,camera);
+</script>
+</body>
+</html>
