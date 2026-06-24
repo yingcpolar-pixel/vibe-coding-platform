@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurora — Motion Design Landing</title>
+  <meta name="description" content="A premium, motion-driven landing page demo." />
+
+  <!-- Preload / fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- ============================================================
+       PROGRESS / SCROLL INDICATOR
+  ============================================================ -->
+  <div class="scroll-progress" data-progress aria-hidden="true"></div>
+
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <header class="nav" data-nav>
+    <a class="nav__logo" href="#hero" aria-label="Aurora home">
+      <!-- Geometric SVG icon (stroke-draw animated) -->
+      <svg class="icon-draw" viewBox="0 0 48 48" width="36" height="36" fill="none" aria-hidden="true">
+        <path data-draw d="M24 4 L44 24 L24 44 L4 24 Z" stroke="currentColor" stroke-width="2" />
+        <circle data-draw cx="24" cy="24" r="9" stroke="currentColor" stroke-width="2" />
+      </svg>
+      <span>Aurora</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#data">Insights</a>
+      <a href="#cta">Start</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============================================================
+         HERO  (parallax layers + char-by-char text)
+    ============================================================ -->
+    <section id="hero" class="hero" data-scene>
+      <div class="hero__bg" data-parallax data-speed="-0.25" aria-hidden="true"></div>
+      <div class="hero__glow" data-parallax data-speed="0.15" aria-hidden="true"></div>
+
+      <div class="hero__inner">
+        <p class="eyebrow" data-split>Motion-first experiences</p>
+        <h1 class="hero__title" data-split>Design that moves with you</h1>
+        <p class="hero__sub" data-split>
+          GSAP-driven choreography, buttery Lenis smooth scroll, and living data.
+        </p>
+        <div class="hero__actions" data-reveal>
+          <a class="btn btn--primary" href="#data">Explore the data</a>
+          <a class="btn btn--ghost" href="#features">See features</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FEATURES  (SVG line-draw icons + stagger reveal)
+    ============================================================ -->
+    <section id="features" class="features" data-scene>
+      <h2 class="section-title" data-split>Built for craft</h2>
+
+      <div class="features__grid">
+        <article class="feature" data-reveal>
+          <svg class="icon-draw feature__icon" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <path data-draw d="M8 48 L24 24 L36 36 L56 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path data-draw d="M44 12 L56 12 L56 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <h3>Performance</h3>
+          <p>GPU-accelerated transforms only. No layout thrashing, ever.</p>
+        </article>
+
+        <article class="feature" data-reveal>
+          <svg class="icon-draw feature__icon" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <circle data-draw cx="32" cy="32" r="22" stroke="currentColor" stroke-width="2.5" />
+            <path data-draw d="M32 14 L32 32 L46 40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+          </svg>
+          <h3>Choreography</h3>
+          <p>Scroll-synced timelines with ScrollTrigger scrubbing.</p>
+        </article>
+
+        <article class="feature" data-reveal>
+          <svg class="icon-draw feature__icon" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <rect data-draw x="12" y="12" width="40" height="40" rx="8" stroke="currentColor" stroke-width="2.5" />
+            <path data-draw d="M24 40 L24 28 M32 40 L32 20 M40 40 L40 32" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+          </svg>
+          <h3>Living data</h3>
+          <p>ECharts with glow styling and spring-physics tooltips.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         DATA  (ECharts, animated on enter)
+    ============================================================ -->
+    <section id="data" class="data" data-scene>
+      <div class="data__head">
+        <h2 class="section-title" data-split>The numbers, alive</h2>
+        <p class="section-sub" data-split>Interactive, glowing, responsive.</p>
+      </div>
+      <!-- Chart mounts here; lazy-initialised when it enters the viewport -->
+      <div id="chart" class="chart" data-chart role="img" aria-label="Interactive performance chart"></div>
+    </section>
+
+    <!-- ============================================================
+         CTA
+    ============================================================ -->
+    <section id="cta" class="cta" data-scene>
+      <div class="cta__glow" data-parallax data-speed="0.2" aria-hidden="true"></div>
+      <h2 class="cta__title" data-split>Ready to build something that moves?</h2>
+      <a class="btn btn--primary btn--lg" href="#hero" data-reveal>Get started</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Aurora — demo skeleton.</p>
+  </footer>
+
+  <!-- ============================================================
+       VENDOR (CDN, ES modules + import map)
+  ============================================================ -->
+  <script type="importmap">
+  {
+    "imports": {
+      "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm",
+      "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js/+esm",
+      "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.13/+esm",
+      "echarts": "https://cdn.jsdelivr.net/npm/echarts@5.5.1/+esm",
+      "splitting": "https://cdn.jsdelivr.net/npm/splitting@1.0.6/+esm"
+    }
+  }
+  </script>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
